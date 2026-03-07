@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YESFEST - Evi & Ori</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --yes-blue: #0000FF;
+            --yes-white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--yes-white);
+            color: var(--yes-blue);
+            text-transform: uppercase;
+        }
+
+        h1, h2, h3, .display-font {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .app-container {
+            width: 100%;
+            margin: 0 auto;
+            background-color: var(--yes-white);
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: var(--yes-white);
+            border-bottom: 2px solid var(--yes-blue);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 52px;
+        }
+
+        .nav-logo {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            color: var(--yes-blue);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--yes-blue);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.5;
+        }
+
+        /* mobile nav toggle */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--yes-blue);
+        }
+
+        @media (max-width: 640px) {
+            .nav-toggle { display: flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 52px;
+                left: 0;
+                right: 0;
+                background: var(--yes-white);
+                border-bottom: 2px solid var(--yes-blue);
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links li { border-top: 1px solid rgba(0,0,255,0.15); }
+            .nav-links a {
+                display: block;
+                padding: 14px 2rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* FORM ELEMENTS */
+        .input-style {
+            border: 2px solid var(--yes-blue);
+            background-color: var(--yes-white);
+            color: var(--yes-blue);
+            font-family: 'Roboto Mono', monospace;
+            width: 100%;
+            padding: 16px;
+            outline: none;
+            border-radius: 0;
+            appearance: none;
+            transition: background-color 0.2s ease;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .input-style:focus {
+            background-color: #f0f0ff;
+        }
+
+        .input-style::placeholder {
+            color: rgba(0, 0, 255, 0.35);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .btn-primary {
+            background-color: var(--yes-blue);
+            color: var(--yes-white);
+            border: 2px solid var(--yes-blue);
+            transition: all 0.2s ease;
+            font-family: 'Roboto Mono', monospace;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--yes-white);
+            color: var(--yes-blue);
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper::after {
+            content: '▼';
+            font-size: 0.65rem;
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--yes-blue);
+            pointer-events: none;
+        }
+
+        /* FAQ */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease, padding 0.3s ease;
+            text-transform: none;
+            font-size: 0.85rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
+            opacity: 0;
+            line-height: 1.7;
+            letter-spacing: 0;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 400px;
+            padding-top: 14px;
+            padding-bottom: 6px;
+            opacity: 1;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        /* LOGO */
+        .logo-img {
+            max-width: min(520px, 80vw);
+            width: 100%;
+            mix-blend-mode: multiply;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* TICKER TAPE */
+        .ticker-wrap {
+            overflow: hidden;
+            background-color: var(--yes-blue);
+            padding: 16px 0;
+            border-top: 2px solid var(--yes-blue);
+            border-bottom: 2px solid var(--yes-blue);
+        }
+
+        .ticker-content {
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+            animation: ticker 28s linear infinite;
+            gap: 0;
+        }
+
+        .ticker-block {
+            font-family: 'Roboto', sans-serif;
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--yes-blue);
+            background: var(--yes-white);
+            padding: 8px 20px;
+            margin: 0 10px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .ticker-dot {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.4);
+            padding: 0 4px;
+            font-weight: 900;
+        }
+
+        @keyframes ticker {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Section dividers */
+        .section-label {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            opacity: 0.5;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* Card hover — subtle border only, no lift/3D */
+        .info-card {
+            transition: border-color 0.2s;
+        }
+        .info-card:hover {
+            border-color: var(--yes-blue);
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="main-nav">
+    <div class="nav-inner">
+        <a href="#top" class="nav-logo">YESFEST '26</a>
+        <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#praktisch-section" onclick="closeNav()">Praktisch</a></li>
+            <li><a href="#faq-section" onclick="closeNav()">FAQ</a></li>
+            <li><a href="#fotos-section" onclick="closeNav()">Foto's</a></li>
+            <li><a href="#rsvp-section" onclick="closeNav()">RSVP</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="app-container" id="top">
+
+    <!-- HEADER -->
+    <header class="pt-36 pb-16 px-6 text-center bg-white md:pt-44 md:pb-20">
+<img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-80">        <div class="mono text-sm md:text-base mt-8 mb-10 text-[var(--yes-blue)] tracking-[0.1em] font-bold">22.08.2026</div>
+        <a href="#rsvp-section" class="inline-block border-2 border-[var(--yes-blue)] px-10 py-4 text-xs font-bold tracking-[0.2em] hover:bg-[var(--yes-blue)] hover:text-white transition-colors duration-300 text-[var(--yes-blue)]">
+            RSVP
+        </a>
+    </header>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+        <div class="ticker-content">
+            <span class="ticker-block">YESFEST 2026</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">22 AUGUSTUS</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">EVI × ORI</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">DE HAAN</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">DOORS OPEN 15:00</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">CHASING THE NOMADE</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">SJOERD × THE VANDAL</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">LOADED FRIES BY LA FÊTE</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">RSVP VOOR 7 JUNI</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">YESFEST 2026</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">22 AUGUSTUS</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">EVI × ORI</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">DE HAAN</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">DOORS OPEN 15:00</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">CHASING THE NOMADE</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">SJOERD × THE VANDAL</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">LOADED FRIES BY LA FÊTE</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">RSVP VOOR 7 JUNI</span><span class="ticker-dot">·</span>
+        </div>
+    </div>
+
+    <!-- PRAKTISCH -->
+    <section class="p-6 md:p-12 lg:p-24 bg-[var(--yes-blue)] text-white" id="praktisch-section">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="display-font text-4xl md:text-5xl mb-10 text-white font-bold">Praktisch</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-transparent">
+                <!-- Locatie -->
+                <div class="info-card bg-white text-[var(--yes-blue)] p-6 flex flex-col justify-center border-2 border-transparent">
+                    <div class="mono text-xs font-bold opacity-60 mb-3 tracking-[0.2em]">LOCATIE</div>
+                    <div class="display-font font-bold text-xl md:text-2xl mb-1">'T Jacobientje</div>
+                    <div class="mono text-xs md:text-sm opacity-70">Vijfwegestraat 15 @ De Haan</div>
+                </div>
+
+                <!-- Timetable -->
+                <div class="info-card bg-white text-[var(--yes-blue)] p-6 flex flex-col justify-between border-2 border-transparent">
+                    <div class="mono text-xs font-bold opacity-60 mb-3 tracking-[0.2em]">DOORS OPEN</div>
+                    <div class="flex justify-between items-end">
+                        <span class="display-font font-bold text-2xl md:text-3xl">15:00 – 22:00</span>
+                    </div>
+                </div>
+
+                <!-- Line-up -->
+                <div class="info-card bg-white text-[var(--yes-blue)] p-6 border-2 border-transparent">
+                    <div class="mono text-xs font-bold opacity-60 mb-4 tracking-[0.2em]">LINE-UP</div>
+                    <div class="flex flex-col gap-4">
+                        <div class="flex justify-between items-center border-b border-[var(--yes-blue)]/15 pb-4">
+                            <span class="mono font-bold text-base">15:00</span>
+                            <span class="display-font text-base md:text-lg font-bold">Chasing the Nomade</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="mono font-bold text-base">18:00</span>
+                            <span class="display-font text-base md:text-lg font-bold">Sjoerd × The Vandal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food & Drinks -->
+                <div class="info-card bg-white text-[var(--yes-blue)] p-0 flex flex-col sm:flex-row overflow-hidden border-2 border-transparent">
+                    <div class="flex-1 p-6 border-b sm:border-b-0 sm:border-r border-[var(--yes-blue)]/15">
+                        <div class="mono text-xs font-bold opacity-60 mb-3 tracking-[0.2em]">FOOD</div>
+                        <div class="display-font text-lg md:text-xl font-bold mb-1">Loaded Fries</div>
+                        <div class="mono text-xs font-semibold opacity-60">By La Fête</div>
+                    </div>
+                    <div class="flex-1 p-6">
+                        <div class="mono text-xs font-bold opacity-60 mb-3 tracking-[0.2em]">DRINKS</div>
+                        <div class="display-font text-lg md:text-xl font-bold mb-1">Genoeg</div>
+                        <div class="mono text-xs font-semibold opacity-60">Niet mee inzitten</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="p-6 md:p-16 lg:p-24 bg-white" id="faq-section">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="display-font text-4xl md:text-5xl mb-10 text-[var(--yes-blue)] font-bold">F.A.Q.</h2>
+            
+            <div class="space-y-0 border-t-2 border-[var(--yes-blue)]">
+                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
+                        <span>Wat is de bedoeling?</span>
+                        <span class="faq-icon text-xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
+                        Wij (Ori & Evi - voor moest dat nog niet duidelijk zijn) gaan trouwen en jij bent uitgenodigd om mee te feesten. We kiezen ervoor om ons te focussen op het feest omdat we zelf ook graag feesten. Logisch, toch? We kiezen voor een open-air concept.
+                    </div>
+                </div>
+
+                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
+                        <span>Is er een ceremonie?</span>
+                        <span class="faq-icon text-xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
+                        Nee. Wij kiezen er bewust voor om geen onderscheid te maken tussen ceremonie/receptie/diner/avondfeest... Alle uitgenodigden zijn welkom om te dansen, te eten en te drinken. Laat alleen tijdig weten of je komt en of je mee-eet.
+                    </div>
+                </div>
+
+                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
+                        <span>Al om 15u aanwezig zijn?</span>
+                        <span class="faq-icon text-xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
+                        Niets moet en alles mag in het leven, maar het is wel onze bedoeling om er direct in te vliegen. Er staat geen einduur op het event maar als je pas om 2u toestekt kan het zijn dat het al gedaan is.
+                    </div>
+                </div>
+
+                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
+                        <span>Hoe raak ik daar?</span>
+                        <span class="faq-icon text-xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
+                        Met de fiets, auto (voldoende parking ter plaatse), elektrische step, gocart, luchtballon,... De mogelijkheden zijn eindeloos.
+                    </div>
+                </div>
+
+                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
+                        <span>Dieetwensen / Allergieën?</span>
+                        <span class="faq-icon text-xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
+                        Zeker! We voorzien lekkere veggie opties. Laat je specifieke wensen (veggie, vegan, lactose/glutenvrij) achter in het RSVP-formulier, dan stemmen wij dit af met de foodtruck.
+                    </div>
+                </div>
+
+                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
+                        <span>Wat moet ik aandoen?</span>
+                        <span class="faq-icon text-xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
+                        Er is geen dresscode, draag wat je wilt. Hou er wel rekening mee dat het 's avonds al wat kan afkoelen dus neem een trui mee.
+                    </div>
+                </div>
+
+                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
+                        <span>Mogen kinderen mee?</span>
+                        <span class="faq-icon text-xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
+                        Nee, sorry. Vanavond is voor de volwassenen!
+                    </div>
+                </div>
+
+                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
+                        <span>Cadeautip?</span>
+                        <span class="faq-icon text-xl font-bold">+</span>
+                    </div>
+                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
+                        Geld of kraslotjes (Ori gelooft nog steeds dat hij ooit op een dag de lotto zal winnen).
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOTO'S -->
+    <section class="p-6 md:p-16 lg:p-24 bg-[var(--yes-blue)] text-white" id="fotos-section">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="display-font text-4xl md:text-5xl mb-8 text-white font-bold">Foto's</h2>
+            <div class="border border-dashed border-white/30 p-12 md:p-20 text-center flex flex-col items-center justify-center min-h-[280px]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-5 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <p class="display-font font-bold text-lg md:text-xl tracking-wide">Pics or it didn't happen</p>
+                <p class="mono text-xs mt-3 normal-case opacity-50 text-center max-w-md mx-auto tracking-wider">Ja, er zijn nog geen foto's hè, want het feest moet nog gebeuren.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="p-6 md:p-16 lg:p-24 bg-white text-[var(--yes-blue)]" id="rsvp-section">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="display-font text-4xl md:text-5xl mb-3 text-[var(--yes-blue)] font-bold">RSVP</h2>
+            <p class="mono text-xs tracking-[0.2em] mb-10 opacity-60">DEADLINE — 7 JUNI 2026</p>
+            
+            <div class="bg-white p-6 md:p-10 border-2 border-[var(--yes-blue)]">
+                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="col-span-1 md:col-span-2">
+                            <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">JOUW NAAM</label>
+                            <input type="text" placeholder="Voor- en achternaam" required class="input-style">
+                        </div>
+                        
+                        <div class="col-span-1 md:col-span-2">
+                            <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">BEN JE ERBIJ?</label>
+                            <div class="select-wrapper">
+                                <select required id="attendance" onchange="togglePlusOne()" class="input-style font-bold">
+                                    <option value="" disabled selected>Kies een optie...</option>
+                                    <option value="ja">HELL YES, I'M IN!</option>
+                                    <option value="nee">HELAAS, IK MIS HET FEESTJE</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="extra-fields" style="display: none;" class="space-y-6 pt-6 border-t border-dashed border-[var(--yes-blue)]/20">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">PLUS-ONE?</label>
+                                <div class="select-wrapper">
+                                    <select id="plusOne" onchange="togglePlusOneName()" class="input-style">
+                                        <option value="" disabled selected>Neem je iemand mee?</option>
+                                        <option value="ja">JA (+1)</option>
+                                        <option value="nee">NEE, IK KOM SOLO</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">EET JIJ MEE?</label>
+                                <div class="select-wrapper">
+                                    <select id="eating" class="input-style">
+                                        <option value="" disabled selected>Laat het ons weten...</option>
+                                        <option value="ja">JA, LOADED FRIES AUB!</option>
+                                        <option value="nee">NEE, IK EET THUIS</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="plusOneNameField" style="display: none;" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[var(--yes-blue)]/5 p-5 md:p-6 border border-[var(--yes-blue)]/30">
+                            <div>
+                                <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">NAAM PLUS-ONE</label>
+                                <input type="text" placeholder="Naam van je +1" class="input-style bg-white">
+                            </div>
+                            <div>
+                                <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">EET JE PLUS-ONE MEE?</label>
+                                <div class="select-wrapper">
+                                    <select id="plusOneEating" class="input-style bg-white">
+                                        <option value="" disabled selected>Laat het ons weten...</option>
+                                        <option value="ja">JA, LOADED FRIES AUB!</option>
+                                        <option value="nee">NEE, EET NIET MEE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">DIEETWENSEN / ALLERGIEËN?</label>
+                            <textarea rows="3" placeholder="Veggie, vegan, gluten- of lactosevrij? Vertel het ons hier!" class="input-style resize-none"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full p-5 text-sm font-bold tracking-[0.25em] mt-4">
+                        BEVESTIGEN
+                    </button>
+                </form>
+
+                <div id="successMessage" class="hidden text-center py-10 md:py-16">
+                    <h3 class="display-font text-4xl md:text-5xl mb-4 font-bold">You're on<br>the list!</h3>
+                    <div class="w-12 h-px bg-[var(--yes-blue)] mx-auto mb-6"></div>
+                    <p class="mono text-xs normal-case mb-8 text-[var(--yes-blue)] max-w-md mx-auto leading-relaxed tracking-wider opacity-70">Bedankt voor je RSVP. We kunnen niet wachten om er samen een dik feest van te maken!</p>
+                    <p class="display-font font-bold text-xl md:text-2xl text-[var(--yes-blue)]">See you @ Yesfest</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center p-12 bg-[var(--yes-blue)] text-white border-t-2 border-white/10">
+        <p class="display-font font-black text-2xl md:text-4xl tracking-wide">YESFEST <span class="opacity-40 font-bold">2026</span></p>
+        <p class="mono text-xs mt-4 opacity-40 tracking-[0.3em]">EVI & ORI — 22.08.2026 — DE HAAN</p>
+    </footer>
+
+</div>
+
+<script>
+    // Nav toggle (mobile)
+    function toggleNav() {
+        document.getElementById('nav-links').classList.toggle('open');
+    }
+    function closeNav() {
+        document.getElementById('nav-links').classList.remove('open');
+    }
+
+    // FAQ
+    function toggleFAQ(element) {
+        const allItems = document.querySelectorAll('.faq-item');
+        allItems.forEach(item => {
+            if (item !== element) item.classList.remove('active');
+        });
+        element.classList.toggle('active');
+    }
+
+    // RSVP
+    function togglePlusOne() {
+        const attendance = document.getElementById('attendance').value;
+        const extraFields = document.getElementById('extra-fields');
+        const eatingSelect = document.getElementById('eating');
+        if (attendance === 'nee' || attendance === '') {
+            extraFields.style.display = 'none';
+            eatingSelect.removeAttribute('required');
+        } else {
+            extraFields.style.display = 'block';
+            eatingSelect.setAttribute('required', 'required');
+        }
+    }
+
+    function togglePlusOneName() {
+        const plusOne = document.getElementById('plusOne').value;
+        const nameField = document.getElementById('plusOneNameField');
+        nameField.style.display = (plusOne === 'ja') ? 'grid' : 'none';
+    }
+
+    function submitRSVP(event) {
+        event.preventDefault();
+        document.getElementById('rsvpForm').style.display = 'none';
+        document.getElementById('successMessage').classList.remove('hidden');
+        document.getElementById('rsvp-section').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
