@@ -241,7 +241,7 @@
         }
 
         .ticker-block {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Roboto Mono', monospace;
             font-size: clamp(0.85rem, 1.5vw, 1.1rem);
             font-weight: 700;
             letter-spacing: 0.12em;
@@ -282,6 +282,100 @@
         .info-card:hover {
             border-color: var(--yes-blue);
         }
+
+        /* NAV RSVP BUTTON */
+        .nav-rsvp-btn {
+            background-color: var(--yes-blue);
+            color: var(--yes-white) !important;
+            padding: 7px 18px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            border: 2px solid var(--yes-blue);
+            transition: background-color 0.2s, color 0.2s !important;
+            opacity: 1 !important;
+        }
+        .nav-rsvp-btn:hover {
+            background-color: var(--yes-white) !important;
+            color: var(--yes-blue) !important;
+            border-color: var(--yes-blue);
+            opacity: 1 !important;
+        }
+        @media (max-width: 640px) {
+            .nav-rsvp-btn {
+                display: block;
+                text-align: center;
+                padding: 14px 2rem;
+            }
+        }
+
+        /* POLAROIDS */
+        .polaroid-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+        .polaroid {
+            background: #fff;
+            padding: 14px 14px 52px 14px;
+            box-shadow: 3px 4px 16px rgba(0,0,0,0.25);
+            display: inline-flex;
+            flex-direction: column;
+            cursor: default;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+        }
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05) !important;
+            box-shadow: 6px 8px 28px rgba(0,0,0,0.35);
+            z-index: 10;
+        }
+        .polaroid-img {
+            width: 200px;
+            height: 200px;
+            background: #e8e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .polaroid-empty {
+            background: #dcdce8;
+        }
+        .polaroid-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .polaroid-caption {
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #222;
+            text-transform: none;
+            letter-spacing: 0.02em;
+            padding: 0 10px;
+        }
+        .polaroid-placeholder-icon {
+            opacity: 0.2;
+            color: var(--yes-blue);
+        }
+        .photos-coming-soon {
+            background: rgba(255,255,255,0.08);
+            border: 2px dashed rgba(255,255,255,0.25);
+            padding: 3rem 2rem;
+            text-align: center;
+            max-width: 480px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -289,7 +383,7 @@
 <!-- NAVIGATION -->
 <nav id="main-nav">
     <div class="nav-inner">
-        <a href="#top" class="nav-logo">YESFEST '26</a>
+        <a href="#top" class="nav-logo">EVI × ORI</a>
         <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
@@ -297,7 +391,7 @@
             <li><a href="#praktisch-section" onclick="closeNav()">Praktisch</a></li>
             <li><a href="#faq-section" onclick="closeNav()">FAQ</a></li>
             <li><a href="#fotos-section" onclick="closeNav()">Foto's</a></li>
-            <li><a href="#rsvp-section" onclick="closeNav()">RSVP</a></li>
+            <li><a href="#rsvp-section" onclick="closeNav()" class="nav-rsvp-btn">RSVP</a></li>
         </ul>
     </div>
 </nav>
@@ -307,7 +401,7 @@
     <!-- HEADER -->
     <header class="pt-36 pb-16 px-6 text-center bg-white md:pt-44 md:pb-20">
 <img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-80">        <div class="mono text-sm md:text-base mt-8 mb-10 text-[var(--yes-blue)] tracking-[0.1em] font-bold">22.08.2026</div>
-        <a href="#rsvp-section" class="inline-block border-2 border-[var(--yes-blue)] px-10 py-4 text-xs font-bold tracking-[0.2em] hover:bg-[var(--yes-blue)] hover:text-white transition-colors duration-300 text-[var(--yes-blue)]">
+        <a href="#rsvp-section" class="inline-block border-2 border-[var(--yes-blue)] px-8 py-2 text-lg font-bold hover:bg-[var(--yes-blue)] hover:text-white transition-colors duration-300 text-[var(--yes-blue)]">
             RSVP
         </a>
     </header>
@@ -315,55 +409,55 @@
     <!-- TICKER -->
     <div class="ticker-wrap">
         <div class="ticker-content">
-            <span class="ticker-block">YESFEST 2026</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">22 AUGUSTUS</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">EVI × ORI</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">DE HAAN</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">DOORS OPEN 15:00</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">CHASING THE NOMADE</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">SJOERD × THE VANDAL</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">LOADED FRIES BY LA FÊTE</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">RSVP VOOR 7 JUNI</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">YESFEST 2026</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">22 AUGUSTUS</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">EVI × ORI</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">DE HAAN</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">DOORS OPEN 15:00</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">CHASING THE NOMADE</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">SJOERD × THE VANDAL</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">LOADED FRIES BY LA FÊTE</span><span class="ticker-dot">·</span>
-            <span class="ticker-block">RSVP VOOR 7 JUNI</span><span class="ticker-dot">·</span>
+            <span class="ticker-block">YESFEST 2026</span>
+            <span class="ticker-block">22 AUGUSTUS</span>
+            <span class="ticker-block">EVI × ORI</span>
+            <span class="ticker-block">DE HAAN</span>
+            <span class="ticker-block">DOORS OPEN 15:00</span>
+            <span class="ticker-block">CHASE THE NOMAD</span>
+            <span class="ticker-block">SJOERD × THE VANDAL</span>
+            <span class="ticker-block">LOADED FRIES BY LA FÊTE</span>
+            <span class="ticker-block">RSVP VOOR 7 JUNI</span>
+            <span class="ticker-block">YESFEST 2026</span>
+            <span class="ticker-block">22 AUGUSTUS</span>
+            <span class="ticker-block">EVI × ORI</span>
+            <span class="ticker-block">DE HAAN</span>
+            <span class="ticker-block">DOORS OPEN 15:00</span>
+            <span class="ticker-block">CHASE THE NOMAD</span>
+            <span class="ticker-block">SJOERD × THE VANDAL</span>
+            <span class="ticker-block">LOADED FRIES BY LA FÊTE</span>
+            <span class="ticker-block">RSVP VOOR 7 JUNI</span>
         </div>
     </div>
 
     <!-- PRAKTISCH -->
-    <section class="p-6 md:p-12 lg:p-24 bg-[var(--yes-blue)] text-white" id="praktisch-section">
+    <section class="py-14 px-6 md:p-12 lg:p-24 bg-[var(--yes-blue)] text-white" id="praktisch-section">
         <div class="max-w-7xl mx-auto">
-            <h2 class="display-font text-4xl md:text-5xl mb-10 text-white font-bold">Praktisch</h2>
+            <h2 class="display-font text-4xl md:text-5xl mb-10 text-white font-bold text-center">Praktisch</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-transparent">
                 <!-- Locatie -->
                 <div class="info-card bg-white text-[var(--yes-blue)] p-6 flex flex-col justify-center border-2 border-transparent">
-                    <div class="mono text-xs font-bold opacity-60 mb-3 tracking-[0.2em]">LOCATIE</div>
+                    <div class="mono text-xs font-bold opacity-60 mb-3">LOCATIE</div>
                     <div class="display-font font-bold text-xl md:text-2xl mb-1">'T Jacobientje</div>
                     <div class="mono text-xs md:text-sm opacity-70">Vijfwegestraat 15 @ De Haan</div>
                 </div>
 
                 <!-- Timetable -->
                 <div class="info-card bg-white text-[var(--yes-blue)] p-6 flex flex-col justify-between border-2 border-transparent">
-                    <div class="mono text-xs font-bold opacity-60 mb-3 tracking-[0.2em]">DOORS OPEN</div>
+                    <div class="mono text-xs font-bold opacity-60 mb-3">DOORS OPEN</div>
                     <div class="flex justify-between items-end">
-                        <span class="display-font font-bold text-2xl md:text-3xl">15:00 – 22:00</span>
+                        <span class="display-font font-bold text-2xl md:text-3xl">15:00 — 22:00</span>
                     </div>
                 </div>
 
                 <!-- Line-up -->
                 <div class="info-card bg-white text-[var(--yes-blue)] p-6 border-2 border-transparent">
-                    <div class="mono text-xs font-bold opacity-60 mb-4 tracking-[0.2em]">LINE-UP</div>
+                    <div class="mono text-xs font-bold opacity-60 mb-4">LINE-UP</div>
                     <div class="flex flex-col gap-4">
                         <div class="flex justify-between items-center border-b border-[var(--yes-blue)]/15 pb-4">
                             <span class="mono font-bold text-base">15:00</span>
-                            <span class="display-font text-base md:text-lg font-bold">Chasing the Nomade</span>
+                            <span class="display-font text-base md:text-lg font-bold">Chase the Nomad</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="mono font-bold text-base">18:00</span>
@@ -374,15 +468,19 @@
 
                 <!-- Food & Drinks -->
                 <div class="info-card bg-white text-[var(--yes-blue)] p-0 flex flex-col sm:flex-row overflow-hidden border-2 border-transparent">
-                    <div class="flex-1 p-6 border-b sm:border-b-0 sm:border-r border-[var(--yes-blue)]/15">
-                        <div class="mono text-xs font-bold opacity-60 mb-3 tracking-[0.2em]">FOOD</div>
-                        <div class="display-font text-lg md:text-xl font-bold mb-1">Loaded Fries</div>
-                        <div class="mono text-xs font-semibold opacity-60">By La Fête</div>
+                    <div class="flex-1 p-6 border-b sm:border-b-0 sm:border-r border-[var(--yes-blue)]/15 flex flex-col">
+                        <div class="mono text-xs font-bold opacity-60 mb-3">FOOD</div>
+                        <div class="mt-auto">
+                            <div class="display-font text-lg md:text-xl font-bold mb-1">Loaded Fries</div>
+                            <div class="mono text-xs font-semibold opacity-60">By La Fête</div>
+                        </div>
                     </div>
-                    <div class="flex-1 p-6">
-                        <div class="mono text-xs font-bold opacity-60 mb-3 tracking-[0.2em]">DRINKS</div>
-                        <div class="display-font text-lg md:text-xl font-bold mb-1">Genoeg</div>
-                        <div class="mono text-xs font-semibold opacity-60">Niet mee inzitten</div>
+                    <div class="flex-1 p-6 flex flex-col">
+                        <div class="mono text-xs font-bold opacity-60 mb-3">DRINKS</div>
+                        <div class="mt-auto">
+                            <div class="display-font text-lg md:text-xl font-bold mb-1">Genoeg</div>
+                            <div class="mono text-xs font-semibold opacity-60">Niet mee inzitten</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -390,9 +488,9 @@
     </section>
 
     <!-- FAQ -->
-    <section class="p-6 md:p-16 lg:p-24 bg-white" id="faq-section">
+    <section class="py-14 px-6 md:p-16 lg:p-24 bg-white" id="faq-section">
         <div class="max-w-4xl mx-auto">
-            <h2 class="display-font text-4xl md:text-5xl mb-10 text-[var(--yes-blue)] font-bold">F.A.Q.</h2>
+            <h2 class="display-font text-4xl md:text-5xl mb-10 text-[var(--yes-blue)] font-bold text-center">F.A.Q.</h2>
             
             <div class="space-y-0 border-t-2 border-[var(--yes-blue)]">
                 <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
@@ -479,25 +577,25 @@
     </section>
 
     <!-- FOTO'S -->
-    <section class="p-6 md:p-16 lg:p-24 bg-[var(--yes-blue)] text-white" id="fotos-section">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="display-font text-4xl md:text-5xl mb-8 text-white font-bold">Foto's</h2>
-            <div class="border border-dashed border-white/30 p-12 md:p-20 text-center flex flex-col items-center justify-center min-h-[280px]">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-5 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <section class="py-14 px-6 md:p-16 lg:p-24 bg-[var(--yes-blue)] text-white" id="fotos-section">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="display-font text-4xl md:text-5xl mb-3 text-white font-bold">Foto's</h2>
+            <p class="mono text-xs mb-10 opacity-50 tracking-widest normal-case">Pics or it didn't happen</p>
+            <div class="border border-dashed border-white/30 p-12 md:p-20 flex flex-col items-center justify-center min-h-[200px]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-4 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <p class="display-font font-bold text-lg md:text-xl tracking-wide">Pics or it didn't happen</p>
-                <p class="mono text-xs mt-3 normal-case opacity-50 text-center max-w-md mx-auto tracking-wider">Ja, er zijn nog geen foto's hè, want het feest moet nog gebeuren.</p>
+                <p class="mono text-xs normal-case opacity-50 tracking-wider">Foto's volgen na het feest.</p>
             </div>
         </div>
     </section>
 
     <!-- RSVP -->
-    <section class="p-6 md:p-16 lg:p-24 bg-white text-[var(--yes-blue)]" id="rsvp-section">
+    <section class="py-14 px-6 md:p-16 lg:p-24 bg-white text-[var(--yes-blue)]" id="rsvp-section">
         <div class="max-w-4xl mx-auto">
-            <h2 class="display-font text-4xl md:text-5xl mb-3 text-[var(--yes-blue)] font-bold">RSVP</h2>
-            <p class="mono text-xs tracking-[0.2em] mb-10 opacity-60">DEADLINE — 7 JUNI 2026</p>
+            <h2 class="display-font text-4xl md:text-5xl mb-3 text-[var(--yes-blue)] font-bold text-center">RSVP</h2>
+            <p class="mono text-xs font-bold mb-10 opacity-60 text-center">DEADLINE — 7 JUNI 2026</p>
             
             <div class="bg-white p-6 md:p-10 border-2 border-[var(--yes-blue)]">
                 <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-6">
@@ -505,7 +603,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="col-span-1 md:col-span-2">
                             <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">JOUW NAAM</label>
-                            <input type="text" placeholder="Voor- en achternaam" required class="input-style">
+                            <input type="text" required class="input-style">
                         </div>
                         
                         <div class="col-span-1 md:col-span-2">
@@ -549,7 +647,7 @@
                         <div id="plusOneNameField" style="display: none;" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[var(--yes-blue)]/5 p-5 md:p-6 border border-[var(--yes-blue)]/30">
                             <div>
                                 <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">NAAM PLUS-ONE</label>
-                                <input type="text" placeholder="Naam van je +1" class="input-style bg-white">
+                                <input type="text" class="input-style bg-white">
                             </div>
                             <div>
                                 <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">EET JE PLUS-ONE MEE?</label>
@@ -585,9 +683,9 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="text-center p-12 bg-[var(--yes-blue)] text-white border-t-2 border-white/10">
-        <p class="display-font font-black text-2xl md:text-4xl tracking-wide">YESFEST <span class="opacity-40 font-bold">2026</span></p>
-        <p class="mono text-xs mt-4 opacity-40 tracking-[0.3em]">EVI & ORI — 22.08.2026 — DE HAAN</p>
+    <footer class="text-center p-8 bg-[var(--yes-blue)] text-white border-t-2 border-white/10">
+        <img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-20 mb-4" style="filter: brightness(0) invert(1);">
+        <p class="mono text-xs mt-2 opacity-40 tracking-[0.1em]">22.08.2026</p>
     </footer>
 
 </div>
