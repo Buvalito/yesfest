@@ -398,37 +398,43 @@
 
 <div class="app-container" id="top">
 
-    <!-- HEADER -->
-    <header class="pt-36 pb-16 px-6 text-center bg-white md:pt-44 md:pb-20">
-<img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-80">        <div class="mono text-sm md:text-base mt-8 mb-10 text-[var(--yes-blue)] tracking-[0.1em] font-bold">22.08.2026</div>
-        <a href="#rsvp-section" class="inline-block border-2 border-[var(--yes-blue)] px-8 py-2 text-lg font-bold hover:bg-[var(--yes-blue)] hover:text-white transition-colors duration-300 text-[var(--yes-blue)]">
-            RSVP
-        </a>
-    </header>
+    <!-- HERO: nav + header + ticker = exactly 100vh -->
+    <div style="height: 100vh; display: flex; flex-direction: column;">
 
-    <!-- TICKER -->
-    <div class="ticker-wrap">
-        <div class="ticker-content">
-            <span class="ticker-block">YESFEST 2026</span>
-            <span class="ticker-block">22 AUGUSTUS</span>
-            <span class="ticker-block">EVI × ORI</span>
-            <span class="ticker-block">DE HAAN</span>
-            <span class="ticker-block">DOORS OPEN 15:00</span>
-            <span class="ticker-block">CHASE THE NOMAD</span>
-            <span class="ticker-block">SJOERD × THE VANDAL</span>
-            <span class="ticker-block">LOADED FRIES BY LA FÊTE</span>
-            <span class="ticker-block">RSVP VOOR 7 JUNI</span>
-            <span class="ticker-block">YESFEST 2026</span>
-            <span class="ticker-block">22 AUGUSTUS</span>
-            <span class="ticker-block">EVI × ORI</span>
-            <span class="ticker-block">DE HAAN</span>
-            <span class="ticker-block">DOORS OPEN 15:00</span>
-            <span class="ticker-block">CHASE THE NOMAD</span>
-            <span class="ticker-block">SJOERD × THE VANDAL</span>
-            <span class="ticker-block">LOADED FRIES BY LA FÊTE</span>
-            <span class="ticker-block">RSVP VOOR 7 JUNI</span>
+        <!-- HEADER: fills remaining space between nav and ticker, centers content -->
+        <header style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 52px;" class="px-6 text-center bg-white">
+            <img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-80">
+            <div class="mono text-sm md:text-base mt-8 mb-10 text-[var(--yes-blue)] tracking-[0.1em] font-bold">22.08.2026</div>
+            <a href="#rsvp-section" class="inline-block border-2 border-[var(--yes-blue)] px-8 py-2 text-lg font-bold hover:bg-[var(--yes-blue)] hover:text-white transition-colors duration-300 text-[var(--yes-blue)]">
+                RSVP
+            </a>
+        </header>
+
+        <!-- TICKER: pinned to bottom of the 100vh block -->
+        <div class="ticker-wrap">
+            <div class="ticker-content">
+                <span class="ticker-block">YESFEST 2026</span>
+                <span class="ticker-block">22 AUGUSTUS</span>
+                <span class="ticker-block">EVI × ORI</span>
+                <span class="ticker-block">DE HAAN</span>
+                <span class="ticker-block">DOORS OPEN 15:00</span>
+                <span class="ticker-block">CHASE THE NOMAD</span>
+                <span class="ticker-block">SJOERD × THE VANDAL</span>
+                <span class="ticker-block">LOADED FRIES BY LA FÊTE</span>
+                <span class="ticker-block">RSVP VOOR 7 JUNI</span>
+                <span class="ticker-block">YESFEST 2026</span>
+                <span class="ticker-block">22 AUGUSTUS</span>
+                <span class="ticker-block">EVI × ORI</span>
+                <span class="ticker-block">DE HAAN</span>
+                <span class="ticker-block">DOORS OPEN 15:00</span>
+                <span class="ticker-block">CHASE THE NOMAD</span>
+                <span class="ticker-block">SJOERD × THE VANDAL</span>
+                <span class="ticker-block">LOADED FRIES BY LA FÊTE</span>
+                <span class="ticker-block">RSVP VOOR 7 JUNI</span>
+            </div>
         </div>
-    </div>
+
+    </div><!-- end 100vh hero -->
 
     <!-- PRAKTISCH -->
     <section class="py-14 px-6 md:p-12 lg:p-24 bg-[var(--yes-blue)] text-white" id="praktisch-section">
@@ -603,7 +609,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="col-span-1 md:col-span-2">
                             <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">JOUW NAAM</label>
-                            <input type="text" required class="input-style">
+                            <input type="text" placeholder="Voor- en achternaam" required class="input-style">
                         </div>
                         
                         <div class="col-span-1 md:col-span-2">
@@ -647,7 +653,7 @@
                         <div id="plusOneNameField" style="display: none;" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[var(--yes-blue)]/5 p-5 md:p-6 border border-[var(--yes-blue)]/30">
                             <div>
                                 <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">NAAM PLUS-ONE</label>
-                                <input type="text" class="input-style bg-white">
+                                <input type="text" placeholder="Naam van je +1" class="input-style bg-white">
                             </div>
                             <div>
                                 <label class="mono block text-xs font-bold mb-2 tracking-[0.15em]">EET JE PLUS-ONE MEE?</label>
@@ -683,9 +689,9 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="text-center p-8 bg-[var(--yes-blue)] text-white border-t-2 border-white/10">
-        <img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-20 mb-4" style="filter: brightness(0) invert(1);">
-        <p class="mono text-xs mt-2 opacity-40 tracking-[0.1em]">22.08.2026</p>
+    <footer class="text-center p-12 bg-[var(--yes-blue)] text-white border-t-2 border-white/10">
+        <img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-28 mb-4" style="filter: brightness(0) invert(1);">
+        <p class="mono text-xs mt-2 opacity-40 tracking-[0.3em]">EVI & ORI — DE HAAN</p>
     </footer>
 
 </div>
