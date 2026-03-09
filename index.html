@@ -11,6 +11,9 @@
         :root {
             --yes-blue: #0000FF;
             --yes-white: #ffffff;
+            --yes-accent: #F5F3F5; /* Zacht, warm minimalistisch zand/beige */
+            --yes-accent-dark: #E6DFD5;
+            --yes-gold: #4BB3FD; /* Warm goud accent */
         }
 
         html {
@@ -21,24 +24,41 @@
             font-family: 'Roboto Mono', monospace;
             background-color: var(--yes-white);
             color: var(--yes-blue);
-            text-transform: uppercase;
+            text-transform: uppercase; /* Voor titels en labels */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Leesbaarheid voor langere teksten */
+        .normal-text {
+            text-transform: none;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            line-height: 1.6;
+            letter-spacing: 0;
         }
 
         h1, h2, h3, .display-font {
             font-family: 'Roboto', sans-serif;
             font-weight: 900;
             text-transform: uppercase;
+            letter-spacing: -0.02em;
         }
 
         .mono {
             font-family: 'Roboto Mono', monospace;
         }
 
-        .app-container {
-            width: 100%;
-            margin: 0 auto;
-            background-color: var(--yes-white);
-            min-height: 100vh;
+        /* Minimalistische Design Classes */
+        .minimal-border {
+            border: 1px solid var(--yes-blue);
+        }
+        
+        .minimal-border-b {
+            border-bottom: 1px solid var(--yes-blue);
+        }
+
+        .minimal-border-t {
+            border-top: 1px solid var(--yes-blue);
         }
 
         /* NAV */
@@ -48,8 +68,10 @@
             left: 0;
             right: 0;
             z-index: 100;
-            background-color: var(--yes-white);
-            border-bottom: 2px solid var(--yes-blue);
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--yes-blue);
+            transition: all 0.3s ease;
         }
 
         .nav-inner {
@@ -57,39 +79,41 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 2rem;
-            height: 52px;
+            height: 70px;
         }
 
         .nav-logo {
             font-family: 'Roboto', sans-serif;
             font-weight: 900;
-            font-size: 1.1rem;
-            letter-spacing: 0.05em;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
             color: var(--yes-blue);
             text-decoration: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 3rem;
             list-style: none;
             margin: 0;
             padding: 0;
+            align-items: center;
         }
 
-        .nav-links a {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.7rem;
+        .nav-links a:not(.nav-rsvp-btn) {
+            font-size: 0.8rem;
             font-weight: 700;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.1em;
             color: var(--yes-blue);
             text-decoration: none;
-            text-transform: uppercase;
-            transition: opacity 0.2s;
+            position: relative;
+            padding: 5px 0;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
         }
 
-        .nav-links a:hover {
-            opacity: 0.5;
+        .nav-links a:not(.nav-rsvp-btn):hover {
+            opacity: 1;
         }
 
         /* mobile nav toggle */
@@ -105,68 +129,54 @@
 
         .nav-toggle span {
             display: block;
-            width: 22px;
+            width: 24px;
             height: 2px;
             background: var(--yes-blue);
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .nav-toggle { display: flex; }
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 52px;
+                top: 70px;
                 left: 0;
                 right: 0;
                 background: var(--yes-white);
-                border-bottom: 2px solid var(--yes-blue);
+                border-bottom: 1px solid var(--yes-blue);
                 flex-direction: column;
                 gap: 0;
                 padding: 0;
             }
             .nav-links.open { display: flex; }
-            .nav-links li { border-top: 1px solid rgba(0,0,255,0.15); }
-            .nav-links a {
+            .nav-links li { width: 100%; border-top: 1px solid rgba(0,0,255,0.1); }
+            .nav-links a:not(.nav-rsvp-btn) {
                 display: block;
-                padding: 14px 2rem;
-                font-size: 0.7rem;
+                padding: 20px 2rem;
+                font-size: 0.9rem;
+                opacity: 1;
+            }
+            .nav-links a:not(.nav-rsvp-btn):hover {
+                background-color: var(--yes-accent);
             }
         }
 
-        /* FORM ELEMENTS */
-        .input-style {
-            border: 2px solid var(--yes-blue);
-            background-color: var(--yes-white);
-            color: var(--yes-blue);
-            font-family: 'Roboto Mono', monospace;
-            width: 100%;
-            padding: 16px;
-            outline: none;
-            border-radius: 0;
-            appearance: none;
-            transition: background-color 0.2s ease;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-        }
-
-        .input-style:focus {
-            background-color: #f0f0ff;
-        }
-
-        .input-style::placeholder {
-            color: rgba(0, 0, 255, 0.35);
-            text-transform: uppercase;
-            font-size: 0.75rem;
-        }
-
+        /* BUTTONS & FORMS (Minimalistisch) */
         .btn-primary {
             background-color: var(--yes-blue);
             color: var(--yes-white);
-            border: 2px solid var(--yes-blue);
-            transition: all 0.2s ease;
+            border: 1px solid var(--yes-blue);
             font-family: 'Roboto Mono', monospace;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.1em;
             cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .btn-primary:hover {
@@ -174,14 +184,54 @@
             color: var(--yes-blue);
         }
 
+        .btn-outline {
+            background-color: transparent;
+            color: var(--yes-blue);
+            border: 1px solid var(--yes-blue);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--yes-color);
+        }
+
+        .input-style {
+            border: 1px solid var(--yes-blue);
+            background-color: var(--yes-white);
+            color: var(--yes-blue);
+            font-family: 'Roboto', sans-serif;
+            text-transform: none;
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 16px; /* Prevent iOS auto-zoom on focus */
+            outline: none;
+            border-radius: 0;
+            appearance: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .input-style:focus {
+            background-color: var(--yes-accent);
+            border-color: var(--yes-blue);
+        }
+
+        .input-style::placeholder {
+            color: rgba(0, 0, 255, 0.4);
+            font-family: 'Roboto Mono', monospace;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
         .select-wrapper {
             position: relative;
         }
         .select-wrapper::after {
-            content: '▼';
-            font-size: 0.65rem;
+            content: '↓';
+            font-size: 1rem;
             position: absolute;
-            right: 18px;
+            right: 20px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--yes-blue);
@@ -189,75 +239,70 @@
         }
 
         /* FAQ */
+        .faq-item {
+            transition: background-color 0.3s ease;
+        }
+        .faq-item:hover {
+            background-color: var(--yes-accent);
+        }
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease, padding 0.3s ease;
-            text-transform: none;
-            font-size: 1rem;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
+            transition: max-height 0.5s ease, opacity 0.5s ease, padding 0.5s ease;
             opacity: 0;
-            line-height: 1.7;
-            letter-spacing: 0;
         }
         .faq-item.active .faq-answer {
-            max-height: 400px;
-            padding-top: 14px;
-            padding-bottom: 6px;
+            max-height: 800px;
+            padding-bottom: 30px;
             opacity: 1;
         }
         .faq-icon {
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
+            display: inline-block;
+            font-weight: 400;
         }
         .faq-item.active .faq-icon {
             transform: rotate(45deg);
         }
 
-        /* LOGO */
-        .logo-img {
-            max-width: min(520px, 80vw);
-            width: 100%;
-            mix-blend-mode: multiply;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* TICKER TAPE */
+        /* ENKELE TICKER TAPE (Minimalistisch) */
         .ticker-wrap {
             overflow: hidden;
-            background-color: var(--yes-blue);
+            border-top: 1px solid var(--yes-blue);
+            border-bottom: 1px solid var(--yes-blue);
+            background-color: var(--yes-white);
+            width: 100%;
+        }
+
+        .ticker-row {
             padding: 16px 0;
-            border-top: 2px solid var(--yes-blue);
-            border-bottom: 2px solid var(--yes-blue);
+            display: flex;
+            white-space: nowrap;
         }
 
         .ticker-content {
             display: inline-flex;
             align-items: center;
-            white-space: nowrap;
-            animation: ticker 28s linear infinite;
-            gap: 0;
+            animation: ticker 40s linear infinite;
         }
 
         .ticker-block {
             font-family: 'Roboto Mono', monospace;
-            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+            font-size: 0.85rem;
             font-weight: 700;
-            letter-spacing: 0.12em;
-            color: #F67E7D;
-            background: var(--yes-white);
-            padding: 8px 20px;
-            margin: 0 10px;
+            letter-spacing: 0.1em;
+            padding: 0 20px;
             text-transform: uppercase;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            opacity: 0.9;
+            color: var(--yes-blue);
         }
 
         .ticker-dot {
-            font-size: 1.2rem;
-            color: rgba(255,255,255,0.4);
-            padding: 0 4px;
-            font-weight: 900;
+            margin: 0 20px;
+            opacity: 0.3;
+            font-size: 0.8rem;
         }
 
         @keyframes ticker {
@@ -265,116 +310,80 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* Section dividers */
-        .section-label {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.3em;
-            opacity: 0.5;
-            margin-bottom: 6px;
-            display: block;
+        /* Animatie voor laadscherm RSVP */
+        .loader {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid var(--yes-white);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
         }
 
-        /* NAV RSVP BUTTON */
-        .nav-rsvp-btn {
-            background-color: var(--yes-blue);
-            color: var(--yes-white) !important;
-            padding: 7px 18px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            border: 2px solid var(--yes-blue);
-            transition: background-color 0.2s, color 0.2s !important;
-            opacity: 1 !important;
-        }
-        .nav-rsvp-btn:hover {
-            background-color: var(--yes-white) !important;
-            color: var(--yes-blue) !important;
-            border-color: var(--yes-blue);
-            opacity: 1 !important;
-        }
-        @media (max-width: 640px) {
-            .nav-rsvp-btn {
-                display: block;
-                text-align: center;
-                padding: 14px 2rem;
-            }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* POLAROIDS */
-        .polaroid-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            justify-content: center;
-            padding: 2rem 0;
-        }
-        .polaroid {
-            background: #fff;
-            padding: 14px 14px 52px 14px;
-            box-shadow: 3px 4px 16px rgba(0,0,0,0.25);
-            display: inline-flex;
-            flex-direction: column;
-            cursor: default;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            position: relative;
-        }
-        .polaroid:hover {
-            transform: rotate(0deg) scale(1.05) !important;
-            box-shadow: 6px 8px 28px rgba(0,0,0,0.35);
-            z-index: 10;
-        }
-        .polaroid-img {
-            width: 200px;
-            height: 200px;
-            background: #e8e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .polaroid-empty {
-            background: #dcdce8;
-        }
-        .polaroid-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .polaroid-caption {
-            position: absolute;
-            bottom: 12px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-family: 'Roboto', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: #222;
-            text-transform: none;
-            letter-spacing: 0.02em;
-            padding: 0 10px;
-        }
-        .polaroid-placeholder-icon {
-            opacity: 0.2;
-            color: var(--yes-blue);
-        }
-        .photos-coming-soon {
-            background: rgba(255,255,255,0.08);
-            border: 2px dashed rgba(255,255,255,0.25);
-            padding: 3rem 2rem;
-            text-align: center;
+        /* ── COUNTDOWN — bold grid, mobile first ── */
+        .cd-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.15);
             max-width: 480px;
             margin: 0 auto;
         }
+
+        .cd-cell {
+            background: var(--yes-blue);
+            padding: 28px 16px 22px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cd-number {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3.5rem, 16vw, 6rem);
+            line-height: 1;
+            color: #fff;
+            letter-spacing: -0.03em;
+            display: block;
+            transition: opacity 0.15s ease;
+        }
+
+        .cd-number.tick {
+            opacity: 0.4;
+        }
+
+        .cd-label {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-top: 10px;
+            display: block;
+        }
+
+        @media (min-width: 600px) {
+            .cd-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: 700px;
+            }
+            .cd-number { font-size: clamp(3rem, 8vw, 5.5rem); }
+        }
+
     </style>
 </head>
 <body>
 
 <!-- NAVIGATION -->
 <nav id="main-nav">
-    <div class="nav-inner">
+    <div class="nav-inner max-w-[1600px] mx-auto">
         <a href="#top" class="nav-logo">EVI × ORI</a>
         <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
             <span></span><span></span><span></span>
@@ -383,339 +392,441 @@
             <li><a href="#praktisch-section" onclick="closeNav()">Praktisch</a></li>
             <li><a href="#faq-section" onclick="closeNav()">FAQ</a></li>
             <li><a href="#fotos-section" onclick="closeNav()">Foto's</a></li>
-            <li><a href="#rsvp-section" onclick="closeNav()" class="nav-rsvp-btn">RSVP</a></li>
+            <li>
+                <a href="#rsvp-section" onclick="closeNav()" class="nav-rsvp-btn btn-primary px-6 py-2 text-xs">
+                    RSVP
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
 
 <div class="app-container" id="top">
 
-    <!-- HERO: nav + header + ticker = exactly 100vh -->
-    <div style="height: 100dvh; display: flex; flex-direction: column;">
-
-        <!-- HEADER: fills remaining space between nav and ticker, centers content -->
-        <header style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 52px;" class="px-6 text-center bg-white">
-            <img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-[500px] md:w-[500px]">
-            <div class="mono text-sm md:text-base mt-8 mb-10 text-[var(--yes-blue)] tracking-[0.1em] font-bold">22.08.2026</div>
-            <a href="#rsvp-section" class="inline-block border-2 border-[var(--yes-blue)] px-8 py-2 text-lg font-bold hover:bg-[var(--yes-blue)] hover:text-white transition-colors duration-300 text-[var(--yes-blue)]">
-                RSVP ⭢
-            </a>
-        </header>
-
-        <!-- TICKER: pinned to bottom of the 100vh block -->
-        <div class="ticker-wrap">
-            <div class="ticker-content">
-                <span class="ticker-block">YESFEST 2026</span>
-                <span class="ticker-block">EVI × ORI</span>
-                <span class="ticker-block">22 AUGUSTUS</span>
-                <span class="ticker-block">DE HAAN</span>
-                <span class="ticker-block">DOORS OPEN 15:00</span>
-                <span class="ticker-block">CHASE THE NOMAD</span>
-                <span class="ticker-block">SJOERD × THE VANDAL</span>
-                <span class="ticker-block">LOADED FRIES BY LA FÊTE</span>
-                <span class="ticker-block">RSVP VOOR 7 JUNI</span>
-                <span class="ticker-block">YESFEST 2026</span>
-                <span class="ticker-block">EVI × ORI</span>
-                <span class="ticker-block">22 AUGUSTUS</span>
-                <span class="ticker-block">DE HAAN</span>
-                <span class="ticker-block">DOORS OPEN 15:00</span>
-                <span class="ticker-block">CHASE THE NOMAD</span>
-                <span class="ticker-block">SJOERD × THE VANDAL</span>
-                <span class="ticker-block">LOADED FRIES BY LA FÊTE</span>
-                <span class="ticker-block">RSVP VOOR 7 JUNI</span>
+    <!-- HERO SECTION -->
+    <section class="h-[100dvh] flex flex-col justify-between pt-[70px]">
+        
+        <div class="flex-1 flex flex-col items-center justify-center px-6 text-center relative">
+            <div class="mono text-xs tracking-[0.2em] mb-8 opacity-60">OPEN-AIR</div>
+            
+            <img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-[220px] sm:w-[300px] md:w-[500px] mb-8 md:mb-12 mix-blend-multiply">
+            
+            <div class="mono text-sm md:text-base tracking-[0.2em] mb-10 border-b border-[var(--yes-blue)] pb-2 inline-block">
+                22 AUGUSTUS 2026
             </div>
+            
+            <a href="#rsvp-section" class="btn-primary px-10 py-4 text-sm tracking-widest">
+                RSVP
+            </a>
         </div>
 
-    </div><!-- end 100vh hero -->
-
-    <!-- PRAKTISCH -->
-    <section class="py-14 px-6 md:p-12 lg:p-24 bg-[var(--yes-blue)] text-white" id="praktisch-section">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="mono text-4xl md:text-5xl mb-10 text-white font-bold text-center">Praktisch</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-transparent">
-                <!-- Locatie -->
-                <div class="info-card bg-white text-[var(--yes-blue)] p-6 flex flex-col justify-center border-2 border-transparent">
-                    <div class="mono text-sm font-bold text-[#F67E7D] mb-3">LOCATIE</div>
-                    <div class="display-font font-bold text-xl md:text-2xl mb-1">'T Jacobientje</div>
-                    <div class="mono text-sm font-semibold md:text-sm">Vijfwegestraat 15 @ De Haan</div>
-                </div>
-
-                <!-- Timetable -->
-                <div class="info-card bg-white text-[var(--yes-blue)] p-6 flex flex-col justify-between border-2 border-transparent">
-                    <div class="mono text-sm font-bold text-[#F67E7D] mb-3">DOORS OPEN</div>
-                    <div class="flex justify-between items-end">
-                        <span class="mono font-bold text-2xl md:text-3xl">15:00 — 22:00</span>
-                    </div>
-                </div>
-
-                <!-- Line-up -->
-                <div class="info-card bg-white text-[var(--yes-blue)] p-6 border-2 border-transparent">
-                    <div class="mono text-sm font-bold text-[#F67E7D] mb-4">LINE-UP</div>
-                    <div class="flex flex-col gap-4">
-                        <div class="flex justify-between items-center border-b border-[var(--yes-blue)]/15 pb-4">
-                            <span class="mono font-bold text-base">15:00</span>
-                            <span class="display-font text-base md:text-lg font-bold">Chase the Nomad</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="mono font-bold text-base">18:00</span>
-                            <span class="display-font text-base md:text-lg font-bold">Sjoerd × The Vandal</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Food & Drinks -->
-                <div class="info-card bg-white text-[var(--yes-blue)] p-0 flex flex-col sm:flex-row overflow-hidden border-2 border-transparent">
-                    <div class="flex-1 p-6 border-b sm:border-b-0 sm:border-r border-[var(--yes-blue)]/15 flex flex-col">
-                        <div class="mono text-sm font-bold text-[#F67E7D] mb-3">FOOD</div>
-                        <div class="mt-auto">
-                            <div class="display-font text-lg md:text-xl font-bold mb-1">Loaded Fries</div>
-                            <div class="mono text-sm font-semibold text-[#F67E7D]">By La Fête</div>
-                        </div>
-                    </div>
-                    <div class="flex-1 p-6 flex flex-col">
-                        <div class="mono text-sm font-bold text-[#F67E7D] mb-3">DRINKS</div>
-                        <div class="mt-auto">
-                            <div class="display-font text-lg md:text-xl font-bold mb-1">Genoeg</div>
-                            <div class="mono text-sm font-semibold text-[#F67E7D]">Niet mee inzitten</div>
-                        </div>
-                    </div>
+        <!-- ENKELE TICKER TAPE -->
+        <div class="ticker-wrap">
+            <div class="ticker-row">
+                <div class="ticker-content">
+                    <span class="ticker-block">YESFEST 2026 <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">EVI × ORI <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">22 AUGUSTUS <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">DE HAAN <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">DOORS OPEN 15:00 <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">CHASE THE NOMAD <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">SJOERD × THE VANDAL <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">LOADED FRIES BY LA FÊTE <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">RSVP VOOR 7 JUNI <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">ADULTS ONLY <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">FESTIVAL VIBES <span class="ticker-dot">+</span></span>
+                    
+                    <!-- Duplicate for infinite loop -->
+                    <span class="ticker-block">YESFEST 2026 <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">EVI × ORI <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">22 AUGUSTUS <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">DE HAAN <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">DOORS OPEN 15:00 <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">CHASE THE NOMAD <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">SJOERD × THE VANDAL <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">LOADED FRIES BY LA FÊTE <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">RSVP VOOR 7 JUNI <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">ADULTS ONLY <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">FESTIVAL VIBES <span class="ticker-dot">+</span></span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="py-14 px-6 md:p-16 lg:p-24 bg-white" id="faq-section">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="mono text-4xl md:text-5xl mb-10 text-[var(--yes-blue)] font-bold text-center">F.A.Q.</h2>
+    
+    <section class="py-12 px-5 md:p-16 lg:p-24 bg-[var(--yes-accent)] relative" id="praktisch-section">
+        <div class="max-w-6xl mx-auto">
             
-            <div class="space-y-0 border-t-2 border-[var(--yes-blue)]">
-                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
-                        <span>Wat is YesFest?</span>
-                        <span class="faq-icon text-xl font-bold">+</span>
+            <div class="mb-10 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-3">
+                <h2 class="display-font text-4xl md:text-7xl font-black leading-none">Praktisch</h2>
+                <span class="mono text-xs tracking-[0.2em] opacity-60">ESSENTIAL INFO</span>
+            </div>
+            
+            <div class="border-t border-[var(--yes-blue)]">
+
+                <!-- Locatie -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16 py-7 md:py-14 border-b border-[var(--yes-blue)]">
+                    <div class="mono text-xs tracking-widest  md:w-36 shrink-0">LOCATIE</div>
+                    <div class="flex-1">
+                        <div class="display-font text-3xl md:text-5xl mb-1">'T Jacobientje</div>
+                        <div class="mono text-sm opacity-60">Vijfwegestraat 15 · De Haan</div>
                     </div>
-                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
-                        Wij gaan trouwen, en jij bent uitgenodigd om mee te vieren! Omdat we zelf als eens graag een feestje meepikken, kiezen we ervoor om het vooral een feest te maken. Denk aan een open-air festival vibe: zonnetje, frisse lucht, goede muziek, frisse pils en vooral veel gezelligheid. Wie komt is welkom, en wie niet komt is ook welkom!
+                    <a href="https://maps.google.com/?q=Vijfwegestraat+15+De+Haan" target="_blank" class="btn-outline px-5 py-3 text-xs tracking-widest shrink-0 self-start md:self-auto">↗ ROUTE</a>
+                </div>
+
+                <!-- Doors Open -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16 py-7 md:py-14 border-b border-[var(--yes-blue)]">
+                    <div class="mono text-xs tracking-widest  md:w-36 shrink-0">DOORS OPEN</div>
+                    <div class="flex-1">
+                        <div class="display-font text-3xl md:text-5xl mb-1">15:00 – 22:00</div>
                     </div>
                 </div>
 
-                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
-                        <span>Is er een ceremonie?</span>
-                        <span class="faq-icon text-xl font-bold">+</span>
-                    </div>
-                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
-                        Nee. We doen het een beetje anders. Geen aparte ceremonie, receptie, diner of avondfeest — gewoon één groot feest waar iedereen welkom is van begin tot eind om te dansen, te eten en te drinken. Laat ons enkel op tijd weten of je komt en of je mee-eet, zodat we genoeg eten en drinken kunnen voorzien voor iedereen.
-                    </div>
-                </div>
-
-                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
-                        <span>Word ik al verwacht om 15u?</span>
-                        <span class="faq-icon text-xl font-bold">+</span>
-                    </div>
-                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
-                        Niets moet en alles mag in het leven, maar het is wel onze bedoeling om er direct in te vliegen. Er staat in principe geen einduur op ons feestje maar als je pas om 2u komt, kan het zijn dat het al gedaan is.
+                <!-- Line-up -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16 py-7 md:py-14 border-b border-[var(--yes-blue)]">
+                    <div class="mono text-xs tracking-widest  md:w-36 shrink-0">LINE-UP</div>
+                    <div class="flex-1 flex flex-col md:flex-row gap-4 md:gap-12">
+                        <div class="flex-1 border border-[var(--yes-blue)] p-5">
+                            <div class="display-font text-2xl md:text-4xl mb-1">Chase the Nomad</div>
+                            <div class="mono text-sm tracking-widest opacity-60 mt-2">15:00</div>
+                        </div>
+                        <div class="flex-1 border border-[var(--yes-blue)] p-5">
+                            <div class="display-font text-2xl md:text-4xl mb-1">Sjoerd × The Vandal</div>
+                            <div class="mono text-sm tracking-widest opacity-60 mt-2">18:00</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
-                        <span>Hoe geraak ik er?</span>
-                        <span class="faq-icon text-xl font-bold">+</span>
+                <!-- Food -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16 py-7 md:py-14 border-b border-[var(--yes-blue)]">
+                    <div class="mono text-xs tracking-widest  md:w-36 shrink-0">FOOD</div>
+                    <div class="flex-1">
+                        <div class="display-font text-3xl md:text-5xl mb-1">Loaded Fries</div>
+                        <div class="mono text-sm opacity-60">By La Fête</div>
                     </div>
-                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
-                        Met de fiets, auto (voldoende parking ter plaatse), elektrische step, gocart, te voet,... De mogelijkheden zijn eindeloos.
-                    </div>
-                </div>
-
-                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
-                        <span>Dieetwensen / Allergieën?</span>
-                        <span class="faq-icon text-xl font-bold">+</span>
-                    </div>
-                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
-                        Zeker! We voorzien lekkere veggie opties. Laat je specifieke wensen (veggie, vegan, lactose/glutenvrij) achter in het RSVP-formulier, dan stemmen wij dit af met de foodtruck.
+                    <div class="shrink-0 self-start md:self-auto">
+                        <span class="inline-block border border-[var(--yes-blue)] px-4 py-2 mono text-xs tracking-widest opacity-60">FOODTRUCK</span>
                     </div>
                 </div>
 
-                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
-                        <span>Wat moet ik aandoen?</span>
-                        <span class="faq-icon text-xl font-bold">+</span>
-                    </div>
-                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
-                        Wees jezelf, maar dan in casual chique festival stijl. Het is vooral buiten in het gras te doen, dus een hakje is misschien niet het meest comfortabel. Hou er rekening mee dat het 's avonds al wat kan afkoelen dus neem een trui mee.
-                    </div>
-                </div>
-
-                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
-                        <span>Mogen kinderen mee?</span>
-                        <span class="faq-icon text-xl font-bold">+</span>
-                    </div>
-                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
-                        Nee, sorry. YesFest is adults only!
+                <!-- Drinks -->
+                <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16 py-7 md:py-14">
+                    <div class="mono text-xs tracking-widest  md:w-36 shrink-0">DRINKS</div>
+                    <div class="flex-1">
+                        <div class="display-font text-3xl md:text-5xl mb-1">Genoeg</div>
+                        <div class="mono text-sm opacity-60">Niet mee inzitten</div>
                     </div>
                 </div>
 
-                <div class="faq-item text-[var(--yes-blue)] px-0 py-5 cursor-pointer border-b-2 border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center mono font-bold text-sm tracking-wide">
-                        <span>Cadeautip?</span>
-                        <span class="faq-icon text-xl font-bold">+</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-12 px-5 md:p-16 lg:p-24 bg-white" id="faq-section">
+        <div class="max-w-4xl mx-auto">
+            
+            <div class="mb-10 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-3">
+                <h2 class="display-font text-4xl md:text-7xl font-black leading-none">F.A.Q.</h2>
+                <span class="mono text-xs tracking-[0.2em] opacity-60">GOOD TO KNOW</span>
+            </div>
+            
+            <div class="border-t border-[var(--yes-blue)]">
+                
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Wat is YesFest?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
-                    <div class="faq-answer text-[var(--yes-blue)]/80 normal-case">
-                        Een centje of kraslotjes (Ori <s>gelooft nog steeds</s> is er zeker van dat hij ooit op een dag het groot lot wint).
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Wij gaan trouwen, en jij bent uitgenodigd om mee te vieren! Omdat we zelf al eens graag een feestje meepikken, kiezen we ervoor om het vooral een feest te maken. Denk aan een open-air festival vibe: zonnetje, frisse lucht, goede muziek, frisse pils en vooral veel gezelligheid. Wie komt is welkom, en wie niet komt is ook welkom!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Is er een ceremonie?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee. We doen het een beetje anders. Geen aparte ceremonie, receptie, diner of avondfeest — gewoon één groot feest waar iedereen welkom is van begin tot eind om te dansen, te eten en te drinken. Laat ons enkel op tijd weten of je komt en of je mee-eet, zodat we genoeg eten en drinken kunnen voorzien voor iedereen.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Word ik stipt verwacht om 15u?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Niets moet en alles mag, maar het is wel onze bedoeling om er direct in te vliegen. Er staat in principe geen einduur op ons feestje maar als je pas om 2u komt, kan het zijn dat het al gedaan is.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Hoe geraak ik er?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Met de fiets, auto (voldoende parking ter plaatse), elektrische step, gocart, te voet,... De mogelijkheden zijn eindeloos.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Dieetwensen / Allergieën?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Zeker! We voorzien lekkere veggie opties. Laat je specifieke wensen (veggie, vegan, lactose/glutenvrij) achter in het RSVP-formulier, dan stemmen wij dit af met de foodtruck.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Wat moet ik aandoen?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Wees jezelf, maar dan in casual chique festival stijl. Het is vooral buiten in het gras te doen, dus een hakje is misschien niet het meest comfortabel. Hou er rekening mee dat het 's avonds al wat kan afkoelen dus neem een trui mee.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Mogen kinderen mee?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee, sorry. YesFest is adults only!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Cadeautip?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Een centje of kraslotjes (Ori <del class="opacity-60">gelooft nog steeds</del> is er zeker van dat hij ooit op een dag het groot lot wint).</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Contact note -->
-            <div class="mt-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-                <p class="mono text-sm normal-case leading-relaxed opacity-70" >
-                    Nog iets niet duidelijk? No stress! Stuur ons een berichtje met je minder frequently asked questions.
+            <div class="mt-12 text-center">
+                <p class="normal-text text-sm opacity-60">
+                    Nog iets niet duidelijk? Stuur ons een berichtje met je minder frequently asked questions.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- FOTO'S -->
-    <section class="py-14 px-6 md:p-16 lg:p-24 bg-[var(--yes-blue)] text-white" id="fotos-section">
-        <div class="max-w-4xl mx-auto">
-            <!-- Coming soon: centered at top -->
-            <div class="text-center mb-14">
-                <span class="mono text-sm font-bold tracking-[0.1em] block mb-1 text-[#F67E7D]">COMING SOON</span>
-                <span class="mono text-sm tracking-wider opacity-60">Het album volgt na 22.08.2026</span>
+    <section class="py-24 px-6 md:p-16 lg:p-24 bg-[var(--yes-blue)] text-white" id="fotos-section">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 items-start">
+            
+            <div class="md:w-1/2">
+                <div class="mono text-xs tracking-[0.2em] opacity-60 mb-8 border-b border-white border-opacity-30 inline-block pb-2">THE AFTERMATH</div>
+                <h2 class="display-font text-5xl md:text-7xl font-black leading-none mb-8">Pics or it<br>didn't happen.</h2>
+                <div class="mono text-xs border border-white px-4 py-2 inline-block">COMING SOON — NA 22.08.2026</div>
             </div>
-            <div class="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
-                <!-- Left: title -->
-                <div class="flex-shrink-0">
-                    <h2 class="mono text-4xl md:text-5xl text-white font-bold leading-none">Pics or<br>it didn't<br>happen.</h2>
-                </div>
-                <!-- Divider -->
-                <div class="hidden md:block w-px self-stretch bg-white/20 flex-shrink-0"></div>
-                <div class="block md:hidden h-px bg-white/20"></div>
-                <!-- Right: text in sans-serif like faq-answer -->
-                <div class="flex flex-col gap-4">
-                    <p style="font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.7; letter-spacing: 0; text-transform: none;" class="opacity-80">
-                        Na het feest verzamelen we alle mooiste momenten in één groot album waar iedereen van kan nagenieten. We hebben een internationale topfotograaf geregeld om het feest te vereeuwigen.
-                    </p>
-                    <p style="font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 1rem; line-height: 1.7; letter-spacing: 0; text-transform: none;" class="opacity-80">
-                        Voel je vrij om zelf ook zo veel foto’s te maken tijdens de dag als je wilt. Stuur ze achteraf naar ons door, zodat we samen één groot album kunnen maken.
-                    </p>
-                </div>
-            </div>
+            
+            <div class="md:w-1/2 md:pt-16">
+    <p class="normal-text text-lg opacity-90 mb-6">
+        Na het feest verzamelen we alle mooiste momenten in één groot album waar iedereen van kan nagenieten. 
+        We hebben internationale topfotograaf 
+        <a href="https://www.joroggemans.com/" target="_blank" rel="noopener noreferrer" class="underline inline-flex items-center gap-1">
+            Jo Roggemans
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14M5 5v14h14"/>
+            </svg>
+        </a> geregeld om het feest te vereeuwigen.
+    </p>
+    <p class="normal-text text-lg opacity-90">
+        Voel je vrij om zelf ook zo veel foto’s te maken tijdens de dag als je wilt. Stuur ze achteraf naar ons door, zodat we samen één groot album kunnen maken.
+    </p>
+</div>
+
         </div>
     </section>
 
-    <!-- RSVP -->
-    <section class="py-14 px-6 md:p-16 lg:p-24 bg-white text-[var(--yes-blue)]" id="rsvp-section">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="mono text-4xl md:text-5xl mb-3 text-[var(--yes-blue)] font-bold text-center">RSVP</h2>
-            <p class="mono text-sm font-bold mb-10 text-[#F67E7D] text-center">DEADLINE — 7 JUNI 2026</p>
+    <!-- RSVP (Ticket Form) -->
+    <section class="py-24 px-6 md:p-16 lg:p-24 bg-[var(--yes-accent)]" id="rsvp-section">
+        <div class="max-w-3xl mx-auto">
             
-            <div class="bg-white md:p-10">
-                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-6">
+            <div class="bg-white minimal-border p-8 md:p-16">
+                
+                <div class="text-center mb-16">
+                    <h2 class="display-font text-4xl md:text-6xl mb-4 font-black">RSVP</h2>
+                    <p class="mono text-sm tracking-widest opacity-60">DEADLINE — 7 JUNI 2026</p>
+                </div>
+
+                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-10">
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="col-span-1 md:col-span-2">
-                            <label class="mono block text-sm font-bold mb-2 tracking-[0.15em]">JE NAAM</label>
-                            <input type="text" required class="input-style">
+                    <div class="space-y-8">
+                        <div>
+                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">01 / JE NAAM</label>
+                            <input type="text" required placeholder="Voor- en achternaam" class="input-style">
                         </div>
                         
-                        <div class="col-span-1 md:col-span-2">
-                            <label class="mono block text-sm font-bold mb-2 tracking-[0.15em]">BEN JE ERBIJ?</label>
+                        <div>
+                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">02 / BEN JE ERBIJ?</label>
                             <div class="select-wrapper">
-                                <select required id="attendance" onchange="togglePlusOne()" class="input-style font-bold">
+                                <select required id="attendance" onchange="togglePlusOne()" class="input-style">
                                     <option value="" disabled selected>Kies een optie...</option>
-                                    <option value="ja">HELL YES, I'M IN!</option>
-                                    <option value="nee">HELAAS, IK MIS HET FEESTJE</option>
+                                    <option value="ja">Hell yes, I'm in!</option>
+                                    <option value="nee">Helaas, ik mis het feestje</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div id="extra-fields" style="display: none;" class="space-y-6 pt-6 border-t border-dashed border-[var(--yes-blue)]/20">
+                    <div id="extra-fields" style="display: none;" class="space-y-10 pt-10 border-t border-[var(--yes-blue)] border-opacity-20">
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div>
-                                <label class="mono block text-sm font-bold mb-2 tracking-[0.15em]">PLUS-ONE?</label>
+                                <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">03 / PLUS-ONE?</label>
                                 <div class="select-wrapper">
                                     <select id="plusOne" onchange="togglePlusOneName()" class="input-style">
                                         <option value="" disabled selected>Neem je iemand mee?</option>
-                                        <option value="ja">JA (+1)</option>
-                                        <option value="nee">NEE, IK KOM SOLO</option>
+                                        <option value="ja">Ja (+1)</option>
+                                        <option value="nee">Nee, solo</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="mono block text-sm font-bold mb-2 tracking-[0.15em]">EET JIJ MEE?</label>
+                                <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">04 / EET JIJ MEE?</label>
                                 <div class="select-wrapper">
                                     <select id="eating" class="input-style">
                                         <option value="" disabled selected>Laat het ons weten...</option>
-                                        <option value="ja">JA, LOADED FRIES AUB!</option>
-                                        <option value="nee">NEE, IK EET THUIS</option>
+                                        <option value="ja">Ja, loaded fries aub</option>
+                                        <option value="nee">Nee, ik eet thuis</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="plusOneNameField" style="display: none;" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[var(--yes-blue)]/5 p-5 md:p-6 border border-[var(--yes-blue)]/30">
+                        <div id="plusOneNameField" style="display: none;" class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[var(--yes-accent)] p-6 md:p-8 minimal-border">
                             <div>
-                                <label class="mono block text-sm font-bold mb-2 tracking-[0.15em]">NAAM PLUS-ONE</label>
-                                <input type="text" placeholder="Naam van je +1" class="input-style bg-white">
+                                <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">NAAM PLUS-ONE</label>
+                                <input type="text" placeholder="Naam van je +1" class="input-style border-transparent">
                             </div>
                             <div>
-                                <label class="mono block text-sm font-bold mb-2 tracking-[0.15em]">EET JE PLUS-ONE MEE?</label>
+                                <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">EET JE +1 MEE?</label>
                                 <div class="select-wrapper">
-                                    <select id="plusOneEating" class="input-style bg-white">
-                                        <option value="" disabled selected>Laat het ons weten...</option>
-                                        <option value="ja">JA, LOADED FRIES AUB!</option>
-                                        <option value="nee">NEE, EET NIET MEE</option>
+                                    <select id="plusOneEating" class="input-style border-transparent">
+                                        <option value="" disabled selected>Kies...</option>
+                                        <option value="ja">Ja, fries aub</option>
+                                        <option value="nee">Nee, eet niet mee</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <label class="mono block text-sm font-bold mb-2 tracking-[0.15em]">DIEETWENSEN / ALLERGIEËN?</label>
+                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">05 / DIEETWENSEN / ALLERGIEËN?</label>
                             <textarea rows="3" placeholder="Veggie, vegan, gluten- of lactosevrij? Vertel het ons hier!" class="input-style resize-none"></textarea>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-primary w-full p-5 text-sm font-bold tracking-[0.25em] mt-4">
-                        BEVESTIGEN
-                    </button>
+                    <div class="pt-6">
+                        <button type="submit" id="submitBtn" class="btn-primary w-full p-5 text-sm tracking-widest relative overflow-hidden h-[60px]">
+                            <span id="btnText">TICKET BEVESTIGEN</span>
+                            <div id="btnLoader" class="loader hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                        </button>
+                    </div>
                 </form>
 
-                <div id="successMessage" class="hidden text-center py-10 md:py-16">
-                    <h3 class="mono text-4xl md:text-5xl mb-4 font-bold">You're on<br>the list!</h3>
-                    <div class="w-12 h-px bg-[var(--yes-blue)] mx-auto mb-6"></div>
-                    <p class="mono text-sm normal-case mb-8 text-[var(--yes-blue)] max-w-md mx-auto leading-relaxed tracking-wider opacity-70">Bedankt voor je RSVP. We kunnen niet wachten om er samen een dik feest van te maken!</p>
-                    <p class="display-font font-bold text-xl md:text-2xl text-[var(--yes-blue)]">See you soon @ Yesfest</p>
+                <!-- Succes Bericht -->
+                <div id="successMessage" class="hidden text-center py-16 flex flex-col items-center justify-center min-h-[400px] fade-in">
+                    <div class="mb-8">
+                        <svg class="w-16 h-16 text-[var(--yes-blue)] mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3 class="display-font text-4xl md:text-5xl mb-6 font-black uppercase">You're on<br>the list.</h3>
+                    <p class="normal-text text-lg mb-10 text-[var(--yes-blue)] max-w-md mx-auto opacity-80">Bedankt voor je RSVP. We kunnen niet wachten om er samen een onvergetelijk feest van te maken.</p>
+                    <div class="mono text-xs tracking-widest border border-[var(--yes-blue)] px-6 py-3">SEE YOU SOON</div>
                 </div>
             </div>
+            
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="text-center p-8 bg-[var(--yes-blue)] text-white border-t-2 border-white/10">
-        <p class="mono text-sm opacity-40 tracking-[0.1em]">EVI × ORI — 22.08.2026</p>
+    <footer class="text-center py-16 px-6 bg-[var(--yes-white)] text-[var(--yes-blue)] minimal-border-t">
+        <div class="display-font text-2xl mb-4 font-black tracking-widest">EVI × ORI</div>
+        <p class="mono text-xs tracking-widest opacity-60">22.08.2026 — DE HAAN</p>
     </footer>
 
 </div>
 
 <script>
-    // Nav toggle (mobile)
+    // ── COUNTDOWN ──
+    function updateCountdown() {
+        const target = new Date('2026-08-22T15:00:00');
+        const diff = Math.max(0, target - new Date());
+
+        const days    = Math.floor(diff / 86400000);
+        const hours   = Math.floor((diff % 86400000) / 3600000);
+        const minutes = Math.floor((diff % 3600000)  / 60000);
+        const seconds = Math.floor((diff % 60000)    / 1000);
+
+        function setVal(id, val) {
+            const el = document.getElementById(id);
+            const str = String(val).padStart(2, '0');
+            if (el.textContent !== str) {
+                el.classList.add('tick');
+                setTimeout(() => {
+                    el.textContent = str;
+                    el.classList.remove('tick');
+                }, 80);
+            }
+        }
+
+        setVal('cd-days',    days);
+        setVal('cd-hours',   hours);
+        setVal('cd-minutes', minutes);
+        setVal('cd-seconds', seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+
     function toggleNav() {
         document.getElementById('nav-links').classList.toggle('open');
+        const spans = document.querySelectorAll('.nav-toggle span');
+        if(document.getElementById('nav-links').classList.contains('open')) {
+            spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+        } else {
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
     }
+
     function closeNav() {
         document.getElementById('nav-links').classList.remove('open');
+        const spans = document.querySelectorAll('.nav-toggle span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
     }
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('main-nav');
+        if (window.scrollY > 50) {
+            nav.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+            nav.style.backdropFilter = 'blur(10px)';
+        } else {
+            nav.style.backgroundColor = 'rgba(255, 255, 255, 1)';
+            nav.style.backdropFilter = 'none';
+        }
+    });
 
     // FAQ
     function toggleFAQ(element) {
@@ -726,11 +837,12 @@
         element.classList.toggle('active');
     }
 
-    // RSVP
+    // RSVP Logic
     function togglePlusOne() {
         const attendance = document.getElementById('attendance').value;
         const extraFields = document.getElementById('extra-fields');
         const eatingSelect = document.getElementById('eating');
+        
         if (attendance === 'nee' || attendance === '') {
             extraFields.style.display = 'none';
             eatingSelect.removeAttribute('required');
@@ -743,14 +855,45 @@
     function togglePlusOneName() {
         const plusOne = document.getElementById('plusOne').value;
         const nameField = document.getElementById('plusOneNameField');
-        nameField.style.display = (plusOne === 'ja') ? 'grid' : 'none';
+        if (plusOne === 'ja') {
+            nameField.style.display = 'grid';
+            nameField.style.opacity = '0';
+            setTimeout(() => { nameField.style.opacity = '1'; nameField.style.transition = 'opacity 0.4s ease'; }, 10);
+        } else {
+            nameField.style.display = 'none';
+        }
     }
 
     function submitRSVP(event) {
         event.preventDefault();
-        document.getElementById('rsvpForm').style.display = 'none';
-        document.getElementById('successMessage').classList.remove('hidden');
-        document.getElementById('rsvp-section').scrollIntoView({ behavior: 'smooth' });
+        
+        const btnText = document.getElementById('btnText');
+        const btnLoader = document.getElementById('btnLoader');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        btnText.classList.add('hidden');
+        btnLoader.classList.remove('hidden');
+        submitBtn.style.pointerEvents = 'none';
+
+        // Fake server delay
+        setTimeout(() => {
+            document.getElementById('rsvpForm').style.display = 'none';
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.remove('hidden');
+            
+            // Animatie reset
+            successMsg.style.opacity = '0';
+            setTimeout(() => { successMsg.style.opacity = '1'; successMsg.style.transition = 'opacity 0.5s ease'; }, 10);
+            
+            const section = document.getElementById('rsvp-section');
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
+            
+            window.scrollTo({
+                top: sectionPosition - navHeight,
+                behavior: 'smooth'
+            });
+        }, 1200);
     }
 </script>
 
