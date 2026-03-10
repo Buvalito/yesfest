@@ -724,7 +724,7 @@
                         <svg class="w-16 h-16 text-[var(--yes-blue)] mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
                     </div>
                     <h3 id="successTitle" class="display-font text-4xl md:text-5xl mb-6 font-black uppercase">You're on<br>the list.</h3>
-                    <p id="successText" class="normal-text text-lg mb-10 text-[var(--yes-blue)] max-w-md mx-auto opacity-80">Bedankt voor je RSVP. We kunnen niet wachten om er samen een onvergetelijk feest van te maken.</p>
+                    <p id="successText" class="normal-text text-lg mb-10 text-[var(--yes-blue)] max-w-md mx-auto opacity-80">Bedankt voor je RSVP. We kunnen niet wachten om er samen een goed feestje van te maken.</p>
                     <div id="successTag" class="mono text-xs tracking-widest border border-[var(--yes-blue)] px-6 py-3">SEE YOU SOON</div>
                 </div>
             </div>
@@ -855,42 +855,35 @@
         // Vervang JOUW_SCRIPT_URL hieronder met de URL van jouw Google Apps Script
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF-dybBxfLYE5plKJOvIrmGWTdhIkWsZ3Q0U7UrhRPlvE7ecVXPXSXfateX5DMxKl9fg/exec';
 
+        // no-cors: browser blokkeert het antwoord van Google Apps Script (CORS),
+        // maar het verzoek zelf komt wél aan. We tonen altijd het successcherm.
         try {
-            const response = await fetch(SCRIPT_URL, {
+            await fetch(SCRIPT_URL, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                mode: 'no-cors'
             });
-
-            if (response.ok) {
-                form.style.display = 'none';
-                const successMsg = document.getElementById('successMessage');
-                const attending = document.getElementById('attendance').value;
-
-                if (attending === 'nee') {
-                    document.getElementById('successTitle').innerHTML = 'Jammer<br>dat je er niet bij kan.';
-                    document.getElementById('successText').textContent = 'Bedankt voor je RSVP. We missen je!';
-                    document.getElementById('successTag').textContent = 'MISSCHIEN EEN VOLGENDE KEER';
-                }
-                successMsg.classList.remove('hidden');
-                successMsg.style.opacity = '0';
-                setTimeout(() => { successMsg.style.opacity = '1'; successMsg.style.transition = 'opacity 0.5s ease'; }, 10);
-
-                const section = document.getElementById('rsvp-section');
-                const navHeight = document.querySelector('nav').offsetHeight;
-                const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
-                window.scrollTo({ top: sectionPosition - navHeight, behavior: 'smooth' });
-            } else {
-                btnText.classList.remove('hidden');
-                btnLoader.classList.add('hidden');
-                submitBtn.style.pointerEvents = 'auto';
-                alert('Er ging iets mis. Probeer het opnieuw of stuur ons een berichtje.');
-            }
         } catch (err) {
-            btnText.classList.remove('hidden');
-            btnLoader.classList.add('hidden');
-            submitBtn.style.pointerEvents = 'auto';
-            alert('Er ging iets mis. Controleer je internetverbinding en probeer opnieuw.');
+            // Stil opvangen — no-cors gooit zelden een echte fout
         }
+
+        const attending = document.getElementById('attendance').value;
+        if (attending === 'nee') {
+            document.getElementById('successTitle').innerHTML = 'Jammer<br>dat je er niet bij kan.';
+            document.getElementById('successText').textContent = 'Bedankt voor je RSVP. We missen je!';
+            document.getElementById('successTag').textContent = 'MISSCHIEN EEN VOLGENDE KEER';
+        }
+
+        form.style.display = 'none';
+        const successMsg = document.getElementById('successMessage');
+        successMsg.classList.remove('hidden');
+        successMsg.style.opacity = '0';
+        setTimeout(() => { successMsg.style.opacity = '1'; successMsg.style.transition = 'opacity 0.5s ease'; }, 10);
+
+        const section = document.getElementById('rsvp-section');
+        const navHeight = document.querySelector('nav').offsetHeight;
+        const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: sectionPosition - navHeight, behavior: 'smooth' });
     }
 </script>
 
