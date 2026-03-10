@@ -20,6 +20,11 @@
             scroll-behavior: smooth;
         }
 
+        /* Compensate for sticky nav height on anchor scroll */
+        section[id], div[id] {
+            scroll-margin-top: 70px;
+        }
+
         body {
             font-family: 'Roboto Mono', monospace;
             background-color: var(--yes-white);
@@ -156,9 +161,18 @@
                 padding: 20px 2rem;
                 font-size: 0.9rem;
                 opacity: 1;
+                text-align: right;
             }
             .nav-links a:not(.nav-rsvp-btn):hover {
                 background-color: var(--yes-accent);
+            }
+            .nav-rsvp-btn {
+                display: flex !important;
+                width: 100%;
+                padding: 20px 2rem !important;
+                justify-content: center;
+                border: none !important;
+                border-radius: 0 !important;
             }
         }
 
@@ -393,7 +407,7 @@
             <li><a href="#faq-section" onclick="closeNav()">FAQ</a></li>
             <li><a href="#fotos-section" onclick="closeNav()">Foto's</a></li>
             <li>
-                <a href="#rsvp-section" onclick="closeNav()" class="nav-rsvp-btn btn-primary px-6 py-2 text-xs">
+                <a href="#rsvp-section" onclick="closeNav()" class="nav-rsvp-btn btn-primary px-6 py-2 text-sm">
                     RSVP
                 </a>
             </li>
@@ -434,7 +448,7 @@
                     <span class="ticker-block">LOADED FRIES BY LA FÊTE <span class="ticker-dot">+</span></span>
                     <span class="ticker-block">RSVP VOOR 7 JUNI <span class="ticker-dot">+</span></span>
                     <span class="ticker-block">ADULTS ONLY <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">FESTIVAL VIBES <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">OPEN-AIR <span class="ticker-dot">+</span></span>
                     
                     <!-- Duplicate for infinite loop -->
                     <span class="ticker-block">YESFEST 2026 <span class="ticker-dot">+</span></span>
@@ -447,7 +461,7 @@
                     <span class="ticker-block">LOADED FRIES BY LA FÊTE <span class="ticker-dot">+</span></span>
                     <span class="ticker-block">RSVP VOOR 7 JUNI <span class="ticker-dot">+</span></span>
                     <span class="ticker-block">ADULTS ONLY <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">FESTIVAL VIBES <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">OPEN-AIR <span class="ticker-dot">+</span></span>
                 </div>
             </div>
         </div>
@@ -478,7 +492,7 @@
                 <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16 py-7 md:py-14 border-b border-[var(--yes-blue)]">
                     <div class="mono text-xs tracking-widest  md:w-36 shrink-0">DOORS OPEN</div>
                     <div class="flex-1">
-                        <div class="display-font text-3xl md:text-5xl mb-1">15:00 – 22:00</div>
+                        <div class="display-font text-3xl md:text-5xl mb-1">15:00 — 22:00</div>
                     </div>
                 </div>
 
@@ -513,7 +527,7 @@
                 <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16 py-7 md:py-14">
                     <div class="mono text-xs tracking-widest  md:w-36 shrink-0">DRINKS</div>
                     <div class="flex-1">
-                        <div class="display-font text-3xl md:text-5xl mb-1">Genoeg</div>
+                        <div class="display-font text-3xl md:text-5xl mb-1">À VOLONTÉ</div>
                         <div class="mono text-sm opacity-60">Niet mee inzitten</div>
                     </div>
                 </div>
@@ -636,12 +650,7 @@
     <p class="normal-text text-lg opacity-90 mb-6">
         Na het feest verzamelen we alle mooiste momenten in één groot album waar iedereen van kan nagenieten. 
         We hebben internationale topfotograaf 
-        <a href="https://www.joroggemans.com/" target="_blank" rel="noopener noreferrer" class="underline inline-flex items-center gap-1">
-            Jo Roggemans
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7m0 0v7m0-7L10 14M5 5v14h14"/>
-            </svg>
-        </a> geregeld om het feest te vereeuwigen.
+        <a href="https://www.joroggemans.com/" target="_blank" rel="noopener noreferrer" class="underline inline-flex items-center gap-1">↗ Jo Roggemans</a> geregeld om het feest te vereeuwigen.
     </p>
     <p class="normal-text text-lg opacity-90">
         Voel je vrij om zelf ook zo veel foto’s te maken tijdens de dag als je wilt. Stuur ze achteraf naar ons door, zodat we samen één groot album kunnen maken.
@@ -651,113 +660,92 @@
         </div>
     </section>
 
-    <!-- RSVP (Ticket Form) -->
     <section class="py-24 px-6 md:p-16 lg:p-24 bg-[var(--yes-accent)]" id="rsvp-section">
-        <div class="max-w-3xl mx-auto">
+    <div class="max-w-3xl mx-auto">
+        
+        <div>
             
-            <div class="bg-white minimal-border p-8 md:p-16">
-                
-                <div class="text-center mb-16">
-                    <h2 class="display-font text-4xl md:text-6xl mb-4 font-black">RSVP</h2>
-                    <p class="mono text-sm tracking-widest opacity-60">DEADLINE — 7 JUNI 2026</p>
-                </div>
-
-                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-10">
-                    
-                    <div class="space-y-8">
-                        <div>
-                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">01 / JE NAAM</label>
-                            <input type="text" required placeholder="Voor- en achternaam" class="input-style">
-                        </div>
-                        
-                        <div>
-                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">02 / BEN JE ERBIJ?</label>
-                            <div class="select-wrapper">
-                                <select required id="attendance" onchange="togglePlusOne()" class="input-style">
-                                    <option value="" disabled selected>Kies een optie...</option>
-                                    <option value="ja">Hell yes, I'm in!</option>
-                                    <option value="nee">Helaas, ik mis het feestje</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="extra-fields" style="display: none;" class="space-y-10 pt-10 border-t border-[var(--yes-blue)] border-opacity-20">
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div>
-                                <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">03 / PLUS-ONE?</label>
-                                <div class="select-wrapper">
-                                    <select id="plusOne" onchange="togglePlusOneName()" class="input-style">
-                                        <option value="" disabled selected>Neem je iemand mee?</option>
-                                        <option value="ja">Ja (+1)</option>
-                                        <option value="nee">Nee, solo</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">04 / EET JIJ MEE?</label>
-                                <div class="select-wrapper">
-                                    <select id="eating" class="input-style">
-                                        <option value="" disabled selected>Laat het ons weten...</option>
-                                        <option value="ja">Ja, loaded fries aub</option>
-                                        <option value="nee">Nee, ik eet thuis</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="plusOneNameField" style="display: none;" class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[var(--yes-accent)] p-6 md:p-8 minimal-border">
-                            <div>
-                                <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">NAAM PLUS-ONE</label>
-                                <input type="text" placeholder="Naam van je +1" class="input-style border-transparent">
-                            </div>
-                            <div>
-                                <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">EET JE +1 MEE?</label>
-                                <div class="select-wrapper">
-                                    <select id="plusOneEating" class="input-style border-transparent">
-                                        <option value="" disabled selected>Kies...</option>
-                                        <option value="ja">Ja, fries aub</option>
-                                        <option value="nee">Nee, eet niet mee</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">05 / DIEETWENSEN / ALLERGIEËN?</label>
-                            <textarea rows="3" placeholder="Veggie, vegan, gluten- of lactosevrij? Vertel het ons hier!" class="input-style resize-none"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="pt-6">
-                        <button type="submit" id="submitBtn" class="btn-primary w-full p-5 text-sm tracking-widest relative overflow-hidden h-[60px]">
-                            <span id="btnText">TICKET BEVESTIGEN</span>
-                            <div id="btnLoader" class="loader hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Succes Bericht -->
-                <div id="successMessage" class="hidden text-center py-16 flex flex-col items-center justify-center min-h-[400px] fade-in">
-                    <div class="mb-8">
-                        <svg class="w-16 h-16 text-[var(--yes-blue)] mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
-                    </div>
-                    <h3 class="display-font text-4xl md:text-5xl mb-6 font-black uppercase">You're on<br>the list.</h3>
-                    <p class="normal-text text-lg mb-10 text-[var(--yes-blue)] max-w-md mx-auto opacity-80">Bedankt voor je RSVP. We kunnen niet wachten om er samen een onvergetelijk feest van te maken.</p>
-                    <div class="mono text-xs tracking-widest border border-[var(--yes-blue)] px-6 py-3">SEE YOU SOON</div>
-                </div>
+            <div class="text-center mb-16">
+                <h2 class="display-font text-4xl md:text-6xl mb-4 font-black">RSVP</h2>
+                <p class="mono text-sm tracking-widest opacity-60">DEADLINE — 7 JUNI 2026</p>
             </div>
-            
+
+            <form id="rsvpForm" action="https://formsubmit.co/ori.roggemans@hotmail.com" method="POST" class="space-y-10">
+                
+                <input type="hidden" name="_subject" value="Nieuwe RSVP Ontvangen!">
+                <input type="hidden" name="_captcha" value="false">
+
+                <div class="space-y-8">
+                    <div>
+                        <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">01 / JE NAAM</label>
+                        <input type="text" name="Naam" required placeholder="Voor- en achternaam" class="input-style">
+                    </div>
+                    
+                    <div>
+                        <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">02 / BEN JE ERBIJ?</label>
+                        <div class="select-wrapper">
+                            <select required id="attendance" name="Aanwezigheid" onchange="document.getElementById('extra-fields').style.display = this.value === 'ja' ? 'block' : 'none';" class="input-style">
+                                <option value="" disabled selected>Kies een optie...</option>
+                                <option value="ja">Hell yes, I'm in!</option>
+                                <option value="nee">Helaas, ik mis het feestje</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="extra-fields" style="display: none;" class="space-y-10 pt-10 border-t border-[var(--yes-blue)] border-opacity-20">
+                    
+                    <div>
+                        <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">03 / EET JE MEE?</label>
+                        <div class="select-wrapper">
+                            <select id="eating" name="Eten" class="input-style">
+                                <option value="" disabled selected>Laat het ons weten...</option>
+                                <option value="ja">Ja, loaded fries aub</option>
+                                <option value="nee">Nee, ik eet thuis</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">04 / DIEETWENSEN / ALLERGIEËN?</label>
+                        <textarea rows="3" name="Dieetwensen" placeholder="Veggie, vegan, gluten- of lactosevrij? Vertel het ons hier!" class="input-style resize-none"></textarea>
+                    </div>
+                </div>
+
+                <div class="pt-6">
+                    <button type="submit" id="submitBtn" class="btn-primary w-full p-5 text-sm tracking-widest relative overflow-hidden h-[60px]">
+                        <span id="btnText">TICKET BEVESTIGEN</span>
+                        <div id="btnLoader" class="loader hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                    </button>
+                </div>
+            </form>
+
+            <div id="successMessage" class="hidden text-center py-16 flex flex-col items-center justify-center min-h-[400px] fade-in">
+                <div class="mb-8">
+                    <svg class="w-16 h-16 text-[var(--yes-blue)] mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h3 class="display-font text-4xl md:text-5xl mb-6 font-black uppercase">You're on<br>the list.</h3>
+                <p class="normal-text text-lg mb-10 text-[var(--yes-blue)] max-w-md mx-auto opacity-80">Bedankt voor je RSVP. We kunnen niet wachten om er samen een onvergetelijk feest van te maken.</p>
+                <div class="mono text-xs tracking-widest border border-[var(--yes-blue)] px-6 py-3">SEE YOU SOON</div>
+            </div>
         </div>
-    </section>
+        
+    </div>
+</section>
 
     <!-- FOOTER -->
-    <footer class="text-center py-16 px-6 bg-[var(--yes-white)] text-[var(--yes-blue)] minimal-border-t">
-        <div class="display-font text-2xl mb-4 font-black tracking-widest">EVI × ORI</div>
-        <p class="mono text-xs tracking-widest opacity-60">22.08.2026 — DE HAAN</p>
-    </footer>
+<footer class="text-center py-14 px-6 bg-[var(--yes-white)] text-[var(--yes-blue)] minimal-border-t">
+
+    <div class="flex items-center justify-center gap-6 mb-6">
+        <span class="display-font text-xl font-black tracking-widest">EVI</span>
+
+        <img src="YesFest.png" alt="YesFest Logo" class="w-[80px] mix-blend-multiply">
+
+        <span class="display-font text-xl font-black tracking-widest">ORI</span>
+    </div>
+
+    <p class="mono text-xs tracking-widest opacity-60">22.08.2026</p>
+</footer>
 
 </div>
 
