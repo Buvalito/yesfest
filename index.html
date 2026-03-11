@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YESFEST - Evi & Ori | 22.08.2026</title>
+    <title>YESFEST - Ori & Evi | 22.08.2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
     
     <style>
         :root {
@@ -75,7 +76,6 @@
             z-index: 100;
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--yes-blue);
             transition: all 0.3s ease;
         }
 
@@ -85,6 +85,7 @@
             justify-content: space-between;
             padding: 0 2rem;
             height: 70px;
+            border-bottom: 1px solid var(--yes-blue);
         }
 
         .nav-logo {
@@ -140,38 +141,55 @@
             transition: all 0.3s ease;
         }
 
+        body.nav-open { overflow: hidden; }
+
+        nav.nav-open {
+            background-color: rgba(255, 255, 255, 1) !important;
+            backdrop-filter: none !important;
+        }
+
         @media (max-width: 768px) {
             .nav-toggle { display: flex; }
+
+            nav.nav-open { height: 100dvh; }
+
             .nav-links {
                 display: none;
                 position: absolute;
                 top: 70px;
                 left: 0;
                 right: 0;
+                bottom: 0;
                 background: var(--yes-white);
-                border-bottom: 1px solid var(--yes-blue);
                 flex-direction: column;
-                gap: 0;
-                padding: 0;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                padding: 2rem;
             }
             .nav-links.open { display: flex; }
-            .nav-links li { width: 100%; border-top: 1px solid rgba(0,0,255,0.1); }
+            .nav-links li { text-align: center; }
             .nav-links a:not(.nav-rsvp-btn) {
                 display: block;
-                padding: 20px 2rem;
-                font-size: 0.9rem;
+                font-family: 'Roboto Mono', monospace;
+                font-size: 1.8rem;
+                font-weight: 700;
+                letter-spacing: 0.05em;
                 opacity: 1;
-                text-align: right;
-            }
-            .nav-links a:not(.nav-rsvp-btn):hover {
-                background-color: var(--yes-accent);
+                text-align: center;
+                text-transform: uppercase;
             }
             .nav-rsvp-btn {
-                display: flex !important;
-                width: 100%;
-                padding: 20px 2rem !important;
-                justify-content: center;
-                border: none !important;
+                display: inline-flex !important;
+                width: auto !important;
+                padding: 14px 36px !important;
+                font-family: 'Roboto Mono', monospace !important;
+                font-size: 1rem !important;
+                font-weight: 700 !important;
+                letter-spacing: 0.1em !important;
+                background-color: var(--yes-blue) !important;
+                color: var(--yes-white) !important;
+                border: 1px solid var(--yes-blue) !important;
                 border-radius: 0 !important;
             }
         }
@@ -196,6 +214,24 @@
         .btn-primary:hover {
             background-color: var(--yes-white);
             color: var(--yes-blue);
+        }
+
+        /* Voorkom sticky hover-state op touch-devices */
+        @media (hover: none) {
+            .btn-primary:hover {
+                background-color: var(--yes-blue);
+                color: var(--yes-white);
+            }
+            .btn-outline:hover {
+                background-color: transparent;
+                color: var(--yes-blue);
+            }
+            .nav-links a:not(.nav-rsvp-btn):hover {
+                background-color: transparent;
+            }
+            .faq-item:hover {
+                background-color: transparent;
+            }
         }
 
         .btn-outline {
@@ -329,10 +365,15 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-top: 2px solid var(--yes-white);
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            width: 16px;
+            height: 16px;
             animation: spin 1s linear infinite;
-            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
         }
 
         @keyframes spin {
@@ -398,16 +439,16 @@
 <!-- NAVIGATION -->
 <nav id="main-nav">
     <div class="nav-inner max-w-[1600px] mx-auto">
-        <a href="#top" class="nav-logo">EVI × ORI</a>
+        <a href="#" onclick="closeNav();window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'',window.location.pathname);return false;" class="nav-logo">ORI × EVI</a>
         <button class="nav-toggle" onclick="toggleNav()" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="nav-links">
-            <li><a href="#praktisch-section" onclick="closeNav()">Praktisch</a></li>
-            <li><a href="#faq-section" onclick="closeNav()">FAQ</a></li>
-            <li><a href="#fotos-section" onclick="closeNav()">Foto's</a></li>
+            <li><a href="#praktisch" onclick="closeNav()">Praktisch</a></li>
+            <li><a href="#faq" onclick="closeNav()">FAQ</a></li>
+            <li><a href="#fotos" onclick="closeNav()">Foto's</a></li>
             <li>
-                <a href="#rsvp-section" onclick="closeNav()" class="nav-rsvp-btn btn-primary px-6 py-2 text-sm">
+                <a href="#rsvp" onclick="closeNav()" class="nav-rsvp-btn btn-primary px-6 py-2 text-sm">
                     RSVP
                 </a>
             </li>
@@ -415,7 +456,7 @@
     </div>
 </nav>
 
-<div class="app-container" id="top">
+<div class="app-container">
 
     <!-- HERO SECTION -->
     <section class="h-[100dvh] flex flex-col justify-between pt-[70px]">
@@ -429,7 +470,7 @@
                 22 AUGUSTUS 2026
             </div>
             
-            <a href="#rsvp-section" class="btn-primary px-10 py-4 text-sm tracking-widest">
+            <a href="#rsvp" class="btn-primary px-10 py-4 text-sm tracking-widest">
                 RSVP
             </a>
         </div>
@@ -438,37 +479,35 @@
         <div class="ticker-wrap">
             <div class="ticker-row">
                 <div class="ticker-content">
-                    <span class="ticker-block">YESFEST 2026 <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">EVI × ORI <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">22 AUGUSTUS <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">DE HAAN <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">DOORS OPEN 15:00 <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">CHASE THE NOMAD <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">SJOERD × THE VANDAL <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">LOADED FRIES BY LA FÊTE <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">RSVP VOOR 7 JUNI <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">ADULTS ONLY <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">OPEN-AIR <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">YESFEST 2026</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">ORI × EVI</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">22 AUGUSTUS</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">DE HAAN</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">DOORS OPEN 15:00</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">CHASE THE NOMAD</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">SJOERD × THE VANDAL</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">LOADED FRIES BY LA FÊTE</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">ADULTS ONLY</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">OPEN-AIR</span><span class="ticker-dot">/</span>
                     
                     <!-- Duplicate for infinite loop -->
-                    <span class="ticker-block">YESFEST 2026 <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">EVI × ORI <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">22 AUGUSTUS <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">DE HAAN <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">DOORS OPEN 15:00 <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">CHASE THE NOMAD <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">SJOERD × THE VANDAL <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">LOADED FRIES BY LA FÊTE <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">RSVP VOOR 7 JUNI <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">ADULTS ONLY <span class="ticker-dot">+</span></span>
-                    <span class="ticker-block">OPEN-AIR <span class="ticker-dot">+</span></span>
+                    <span class="ticker-block">YESFEST 2026</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">ORI × EVI</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">22 AUGUSTUS</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">DE HAAN</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">DOORS OPEN 15:00</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">CHASE THE NOMAD</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">SJOERD × THE VANDAL</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">LOADED FRIES BY LA FÊTE</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">ADULTS ONLY</span><span class="ticker-dot">/</span>
+                    <span class="ticker-block">OPEN-AIR</span><span class="ticker-dot">/</span>
                 </div>
             </div>
         </div>
     </section>
 
     
-    <section class="py-12 px-5 md:p-16 lg:p-24 bg-[var(--yes-accent)] relative" id="praktisch-section">
+    <section class="py-12 px-5 md:p-16 lg:p-24 bg-[var(--yes-accent)] relative" id="praktisch">
         <div class="max-w-6xl mx-auto">
             
             <div class="mb-10 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-3">
@@ -519,7 +558,7 @@
                         <div class="mono text-sm opacity-60">By La Fête</div>
                     </div>
                     <div class="shrink-0 self-start md:self-auto">
-                        <span class="inline-block border border-[var(--yes-blue)] px-4 py-2 mono text-xs tracking-widest opacity-60">FOODTRUCK</span>
+                        <span class="inline-block border border-[var(--yes-blue)] px-4 py-2 mono text-xs tracking-widest">FOODTRUCK</span>
                     </div>
                 </div>
 
@@ -537,11 +576,11 @@
     </section>
 
     <!-- FAQ -->
-    <section class="py-12 px-5 md:p-16 lg:p-24 bg-white" id="faq-section">
+    <section class="py-12 px-5 md:p-16 lg:p-24 bg-white" id="faq">
         <div class="max-w-4xl mx-auto">
             
             <div class="mb-10 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-3">
-                <h2 class="display-font text-4xl md:text-7xl font-black leading-none">F.A.Q.</h2>
+                <h2 class="display-font text-4xl md:text-7xl font-black leading-none">FAQ</h2>
                 <span class="mono text-xs tracking-[0.2em] opacity-60">GOOD TO KNOW</span>
             </div>
             
@@ -553,7 +592,7 @@
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Wij gaan trouwen, en jij bent uitgenodigd om mee te vieren! Omdat we zelf al eens graag een feestje meepikken, kiezen we ervoor om het vooral een feest te maken. Denk aan een open-air festival vibe: zonnetje, frisse lucht, goede muziek, frisse pils en vooral veel gezelligheid. Wie komt is welkom, en wie niet komt is ook welkom!</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Wij gaan trouwen, en jij bent uitgenodigd om mee te vieren! Omdat we zelf al eens graag een feestje meepikken, kiezen we ervoor om er vooral een trouw<strong>feest</strong> van te maken. Denk aan een open-air festival: goeie muziek, (hopelijk) zonnig, frisse pintjes en vooral veel gezelligheid.</p>
                     </div>
                 </div>
 
@@ -563,17 +602,27 @@
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee. We doen het een beetje anders. Geen aparte ceremonie, receptie, diner of avondfeest — gewoon één groot feest waar iedereen welkom is van begin tot eind om te dansen, te eten en te drinken. Laat ons enkel op tijd weten of je komt en of je mee-eet, zodat we genoeg eten en drinken kunnen voorzien voor iedereen.</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee, wij doen het een beetje anders. Geen aparte ceremonie, receptie, diner of avondfeest — gewoon één groot feest waar iedereen welkom is van begin tot eind om te dansen, te eten en te drinken. Laat ons enkel op tijd <strong>(vóór 1 juni)</strong> weten of je komt en of je mee-eet, zodat we genoeg eten en drinken kunnen voorzien.</p>
                     </div>
                 </div>
 
                 <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
                     <div class="flex justify-between items-center py-6 px-4 md:px-8">
-                        <span class="display-font text-xl md:text-2xl tracking-normal">Word ik stipt verwacht om 15u?</span>
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Is er een dresscode?</span>
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Niets moet en alles mag, maar het is wel onze bedoeling om er direct in te vliegen. Er staat in principe geen einduur op ons feestje maar als je pas om 2u komt, kan het zijn dat het al gedaan is.</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Wees jezelf, maar dan in <strong>summer chic stijl</strong>. Het is vooral buiten in het gras te doen, dus een hakje is misschien niet de meest comfortabele keuze. Hou er rekening mee dat het 's avonds al wat kan afkoelen, dus neem zeker een trui mee.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Word ik stipt verwacht om 15:00?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee, doe je ding. Wij beginnen alleszins om 15:00 al aan de pinten.</p>
                     </div>
                 </div>
 
@@ -589,31 +638,21 @@
 
                 <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
                     <div class="flex justify-between items-center py-6 px-4 md:px-8">
-                        <span class="display-font text-xl md:text-2xl tracking-normal">Dieetwensen / Allergieën?</span>
-                        <span class="faq-icon text-3xl font-light leading-none">+</span>
-                    </div>
-                    <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Zeker! We voorzien lekkere veggie opties. Laat je specifieke wensen (veggie, vegan, lactose/glutenvrij) achter in het RSVP-formulier, dan stemmen wij dit af met de foodtruck.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
-                        <span class="display-font text-xl md:text-2xl tracking-normal">Wat moet ik aandoen?</span>
-                        <span class="faq-icon text-3xl font-light leading-none">+</span>
-                    </div>
-                    <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Wees jezelf, maar dan in casual chique festival stijl. Het is vooral buiten in het gras te doen, dus een hakje is misschien niet het meest comfortabel. Hou er rekening mee dat het 's avonds al wat kan afkoelen dus neem een trui mee.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
-                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
                         <span class="display-font text-xl md:text-2xl tracking-normal">Mogen kinderen mee?</span>
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
                         <p class="normal-text text-lg max-w-2xl opacity-80">Nee, sorry. YesFest is adults only!</p>
+                    </div>
+                </div>
+
+                <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-center py-6 px-4 md:px-8">
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Dieetwensen / Allergieën?</span>
+                        <span class="faq-icon text-3xl font-light leading-none">+</span>
+                    </div>
+                    <div class="faq-answer px-4 md:px-8">
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Laat je specifieke wensen (veggie, vegan, lactose/glutenvrij) achter in het RSVP-formulier, dan stemmen wij dit af met de foodtruck.</p>
                     </div>
                 </div>
 
@@ -630,14 +669,14 @@
 
             <div class="mt-12 text-center">
                 <p class="normal-text text-sm opacity-60">
-                    Nog iets niet duidelijk? Stuur ons een berichtje met je minder frequently asked questions.
+                    Nog iets niet duidelijk? Stuur ons gerust een berichtje met je minder frequently asked questions.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- FOTO'S -->
-    <section class="py-24 px-6 md:p-16 lg:p-24 bg-[var(--yes-blue)] text-white" id="fotos-section">
+    <section class="py-24 px-6 md:p-16 lg:p-24 bg-[var(--yes-blue)] text-white" id="fotos">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 items-start">
             
             <div class="md:w-1/2">
@@ -648,12 +687,12 @@
             
             <div class="md:w-1/2 md:pt-16">
     <p class="normal-text text-lg opacity-90 mb-6">
-        Na het feest verzamelen we alle mooiste momenten in één groot album waar iedereen van kan nagenieten. 
-        We hebben internationale topfotograaf 
+        Na het feest bundelen we de mooiste momenten in een album, zodat iedereen nog kan nagenieten. 
+        We hebben hiervoor internationale topfotograaf 
         <a href="https://www.joroggemans.com/" target="_blank" rel="noopener noreferrer" class="underline inline-flex items-center gap-1">↗ Jo Roggemans</a> geregeld om het feest te vereeuwigen.
     </p>
     <p class="normal-text text-lg opacity-90">
-        Voel je vrij om zelf ook zo veel foto’s te maken tijdens de dag als je wilt. Stuur ze achteraf naar ons door, zodat we samen één groot album kunnen maken.
+        Voel je  zeker vrij om tijdens de dag zelf ook foto’s te maken. Stuur ze ons nadien door, zodat we samen één groot album kunnen samenstellen.
     </p>
 </div>
 
@@ -661,14 +700,14 @@
     </section>
 
     <!-- RSVP (Ticket Form) -->
-    <section class="py-24 px-6 md:p-16 lg:p-24 bg-[var(--yes-accent)]" id="rsvp-section">
+    <section class="py-24 px-6 md:p-16 lg:p-24 bg-[var(--yes-accent)]" id="rsvp">
         <div class="max-w-3xl mx-auto">
             
             <div>
                 
                 <div class="text-center mb-16">
                     <h2 class="display-font text-4xl md:text-6xl mb-4 font-black">RSVP</h2>
-                    <p class="mono text-sm tracking-widest opacity-60">DEADLINE — 7 JUNI 2026</p>
+                    <p class="mono text-sm tracking-widest opacity-60">DEADLINE — 1 JUNI</p>
                 </div>
 
                 <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-10">
@@ -685,7 +724,7 @@
                                 <select required id="attendance" name="aanwezig" onchange="togglePlusOne()" class="input-style">
                                     <option value="" disabled selected>Kies een optie...</option>
                                     <option value="ja">Hell yes, I'm in!</option>
-                                    <option value="nee">Helaas, ik mis het feestje</option>
+                                    <option value="nee">Nee, jammer genoeg niet.</option>
                                 </select>
                             </div>
                         </div>
@@ -694,12 +733,12 @@
                     <div id="extra-fields" style="display: none;" class="space-y-10 pt-10 border-t border-[var(--yes-blue)] border-opacity-20">
                         
                         <div>
-                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">03 / EET JIJ MEE?</label>
+                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">03 / EET JE MEE?</label>
                             <div class="select-wrapper">
                                 <select id="eating" name="eet_mee" required class="input-style">
                                     <option value="" disabled selected>Laat het ons weten...</option>
-                                    <option value="ja">Ja, loaded fries aub</option>
-                                    <option value="nee">Nee, ik eet thuis</option>
+                                    <option value="ja">Ja, loaded fries aub!</option>
+                                    <option value="nee">Nee, ik ben er enkel voor de drank.</option>
                                 </select>
                             </div>
                         </div>
@@ -713,7 +752,7 @@
                     <div class="pt-6">
                         <button type="submit" id="submitBtn" class="btn-primary w-full p-5 text-sm tracking-widest relative overflow-hidden h-[60px]">
                             <span id="btnText">BEVESTIGEN</span>
-                            <div id="btnLoader" class="loader hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+                            <div id="btnLoader" class="loader hidden"></div>
                         </button>
                     </div>
                 </form>
@@ -724,7 +763,7 @@
                         <svg class="w-16 h-16 text-[var(--yes-blue)] mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
                     </div>
                     <h3 id="successTitle" class="display-font text-4xl md:text-5xl mb-6 font-black uppercase">You're on<br>the list.</h3>
-                    <p id="successText" class="normal-text text-lg mb-10 text-[var(--yes-blue)] max-w-md mx-auto opacity-80">Bedankt voor je RSVP. We kunnen niet wachten om er samen een goed feestje van te maken.</p>
+                    <p id="successText" class="normal-text text-lg mb-10 text-[var(--yes-blue)] max-w-md mx-auto opacity-80">Bedankt voor je RSVP. We kijken ernaar uit om er samen een topfeestje van te maken!</p>
                     <div id="successTag" class="mono text-xs tracking-widest border border-[var(--yes-blue)] px-6 py-3">SEE YOU SOON</div>
                 </div>
             </div>
@@ -733,16 +772,7 @@
     </section>
 
     <!-- FOOTER -->
-<footer class="text-center py-14 px-6 bg-[var(--yes-white)] text-[var(--yes-blue)] minimal-border-t">
-
-    <div class="flex items-center justify-center gap-6 mb-6">
-        <span class="display-font text-xl font-black tracking-widest">EVI</span>
-
-        <img src="YesFest.png" alt="YesFest Logo" class="w-[80px] mix-blend-multiply">
-
-        <span class="display-font text-xl font-black tracking-widest">ORI</span>
-    </div>
-
+<footer class="text-center py-8 px-6 bg-[var(--yes-white)] text-[var(--yes-blue)] minimal-border-t">
     <p class="mono text-xs tracking-widest opacity-60">22.08.2026</p>
 </footer>
 
@@ -782,9 +812,13 @@
 
 
     function toggleNav() {
-        document.getElementById('nav-links').classList.toggle('open');
+        const nav = document.getElementById('main-nav');
+        const links = document.getElementById('nav-links');
+        links.classList.toggle('open');
+        nav.classList.toggle('nav-open');
+        document.body.classList.toggle('nav-open');
         const spans = document.querySelectorAll('.nav-toggle span');
-        if(document.getElementById('nav-links').classList.contains('open')) {
+        if(links.classList.contains('open')) {
             spans[0].style.transform = 'translateY(7px) rotate(45deg)';
             spans[1].style.opacity = '0';
             spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
@@ -796,16 +830,44 @@
     }
 
     function closeNav() {
+        const nav = document.getElementById('main-nav');
         document.getElementById('nav-links').classList.remove('open');
+        nav.classList.remove('nav-open');
+        document.body.classList.remove('nav-open');
         const spans = document.querySelectorAll('.nav-toggle span');
         spans[0].style.transform = 'none';
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
     }
 
+    // Intercept all internal anchor clicks — scroll without adding hash to URL
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            closeNav();
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+            window.scrollTo({ top, behavior: 'smooth' });
+            // Don't push hash to URL
+            history.replaceState(null, '', window.location.pathname);
+        });
+    });
+
+    // Verwijder hash als gebruiker helemaal naar boven scrolt
+    window.addEventListener('scroll', () => {
+        if (window.scrollY < 5 && window.location.hash) {
+            history.replaceState(null, '', window.location.pathname);
+        }
+    });
+
     // Header scroll effect
     window.addEventListener('scroll', () => {
         const nav = document.getElementById('main-nav');
+        if (nav.classList.contains('nav-open')) return;
         if (window.scrollY > 50) {
             nav.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
             nav.style.backdropFilter = 'blur(10px)';
@@ -869,9 +931,9 @@
 
         const attending = document.getElementById('attendance').value;
         if (attending === 'nee') {
-            document.getElementById('successTitle').innerHTML = 'Jammer<br>dat je er niet bij kan.';
-            document.getElementById('successText').textContent = 'Bedankt voor je RSVP. We missen je!';
-            document.getElementById('successTag').textContent = 'MISSCHIEN EEN VOLGENDE KEER';
+            document.getElementById('successTitle').innerHTML = 'Jammer dat je er niet bij kan zijn.';
+            document.getElementById('successText').textContent = 'Bedankt voor je RSVP.';
+            document.getElementById('successTag').textContent = 'Even goeie vrienden!';
         }
 
         form.style.display = 'none';
@@ -880,7 +942,7 @@
         successMsg.style.opacity = '0';
         setTimeout(() => { successMsg.style.opacity = '1'; successMsg.style.transition = 'opacity 0.5s ease'; }, 10);
 
-        const section = document.getElementById('rsvp-section');
+        const section = document.getElementById('rsvp');
         const navHeight = document.querySelector('nav').offsetHeight;
         const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: sectionPosition - navHeight, behavior: 'smooth' });
