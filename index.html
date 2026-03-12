@@ -22,6 +22,16 @@
             scroll-behavior: smooth;
         }
 
+        /* Fix voor mobiele adresbalk sprong (100vh probleem) */
+        @supports (height: 100svh) {
+            .min-h-screen {
+                min-height: 100svh !important;
+            }
+            .h-screen {
+                height: 100svh !important;
+            }
+        }
+
         /* Compensate for sticky nav height on anchor scroll */
         section[id], div[id] {
             scroll-margin-top: 70px;
@@ -465,7 +475,7 @@
         <div class="flex-1 flex flex-col items-center justify-center px-6 text-center relative">
             <div class="mono text-xs tracking-[0.2em] mb-8 opacity-60">OPEN-AIR</div>
             
-            <img src="YesFest.png" alt="YesFest Logo" class="mx-auto w-[220px] sm:w-[300px] md:w-[500px] mb-8 md:mb-12 mix-blend-multiply">
+            <img src="YesFest.svg" alt="YesFest Logo" class="mx-auto w-[250px] sm:w-[300px] md:w-[500px] mb-8 md:mb-12">
             
             <div class="mono text-sm md:text-base tracking-[0.2em] mb-10 border-b border-[var(--yes-blue)] pb-2 inline-block">
                 22 AUGUSTUS 2026
@@ -603,7 +613,7 @@
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee, wij doen het een beetje anders. Geen aparte ceremonie, receptie, diner of avondfeest — gewoon één groot feest waar iedereen welkom is van begin tot eind om te dansen, te eten en te drinken. Laat ons enkel op tijd <strong>(vóór 1 juni)</strong> weten of je komt en of je mee-eet, zodat we genoeg eten en drinken kunnen voorzien.</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee, wij doen het een beetje anders. Geen aparte ceremonie, receptie, diner of avondfeest — gewoon één groot feest waar iedereen welkom is van begin tot eind om te dansen, te eten en te drinken. Laat ons wel <strong>vóór 1 juni</strong> weten of je komt en of je mee-eet, zodat we genoeg eten en drinken kunnen voorzien.</p>
                     </div>
                 </div>
 
@@ -613,7 +623,7 @@
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Wees jezelf, maar dan met een touch van summer chic. Het is vooral buiten in het gras te doen, dus een hakje is misschien niet de meest comfortabele keuze. Hou er rekening mee dat het 's avonds al wat kan afkoelen, dus neem zeker een trui mee.</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Wees jezelf, maar dan met een <strong>touch of summer chique</strong>. Het feest is vooral buiten in het gras te doen, dus een hakje is misschien niet de meest comfortabele keuze. Hou er rekening mee dat het 's avonds al wat kan afkoelen, dus neem zeker een trui mee.</p>
                     </div>
                 </div>
 
@@ -629,11 +639,11 @@
 
                 <div class="faq-item cursor-pointer border-b border-[var(--yes-blue)]" onclick="toggleFAQ(this)">
                     <div class="flex justify-between items-center py-6 px-4 md:px-8">
-                        <span class="display-font text-xl md:text-2xl tracking-normal">Hoe geraak ik er?</span>
+                        <span class="display-font text-xl md:text-2xl tracking-normal">Kan ik mijn auto ergens parkeren?</span>
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Met de fiets, auto (voldoende parking ter plaatse), elektrische step, gocart, te voet,... De mogelijkheden zijn eindeloos.</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Ja hoor, je kan je auto op het perceel zelf parkeren. Er is voldoende plaats.</p>
                     </div>
                 </div>
 
@@ -663,7 +673,7 @@
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Een centje of kraslotjes (Ori <del class="opacity-60">gelooft nog steeds</del> is er zeker van dat hij ooit op een dag het groot lot wint).</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Een centje of kraslotjes (Ori <del class="opacity-60">gelooft nog steeds</del> is er zeker van dat hij ooit op een dag de jackpot wint).</p>
                     </div>
                 </div>
             </div>
@@ -688,12 +698,10 @@
             
             <div class="md:w-1/2 md:pt-16">
     <p class="normal-text text-lg opacity-90 mb-6">
-        Na het feest bundelen we de mooiste momenten in een album, zodat iedereen nog kan nagenieten. 
-        We hebben hiervoor internationale topfotograaf 
-        <a href="https://www.joroggemans.com/" target="_blank" rel="noopener noreferrer" class="underline inline-flex items-center gap-1">↗ Jo Roggemans</a> geregeld om het feest te vereeuwigen.
+        Na het feest bundelen we de mooiste momenten in een album, zodat iedereen nog lang kan nagenieten. Daarom hebben we speciaal internationale topfotograaf <a href="https://www.joroggemans.com/" target="_blank" rel="noopener noreferrer" class="underline inline-flex items-center gap-1"><strong>Jo Roggemans</strong></a> geregeld om het feest op beeld vast te leggen.
     </p>
     <p class="normal-text text-lg opacity-90">
-        Voel je  zeker vrij om tijdens de dag zelf ook foto’s te maken. Stuur ze ons nadien door, zodat we samen één groot album kunnen samenstellen.
+        Voel je zeker vrij om tijdens de dag zelf ook foto’s te maken. Stuur ze ons nadien door, zodat we samen één groot album kunnen samenstellen.
     </p>
 </div>
 
