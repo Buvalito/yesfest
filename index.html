@@ -22,12 +22,13 @@
             scroll-behavior: smooth;
         }
 
-        /* Fix voor mobiele adresbalk sprong (100vh probleem) */
+        /* Fix voor mobiele adresbalk sprong */
         @supports (height: 100svh) {
             .min-h-screen {
                 min-height: 100svh !important;
             }
-            .h-screen {
+            /* We dwingen alle 'full screen' elementen naar svh voor stabiliteit */
+            .h-svh-fix {
                 height: 100svh !important;
             }
         }
@@ -470,7 +471,7 @@
 <div class="app-container">
 
     <!-- HERO SECTION -->
-    <section class="h-[100dvh] flex flex-col justify-between pt-[70px]">
+    <section class="h-svh-fix flex flex-col justify-between pt-[70px]">
         
         <div class="flex-1 flex flex-col items-center justify-center px-6 text-center relative">
             <div class="mono text-xs tracking-[0.2em] mb-8 opacity-60">OPEN-AIR</div>
