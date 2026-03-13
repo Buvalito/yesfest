@@ -13,8 +13,7 @@
         :root {
             --yes-blue: #0000FF;
             --yes-white: #ffffff;
-            --yes-accent: #F5F3F5; /* Zacht, warm minimalistisch zand/beige */
-            --yes-accent-dark: #E6DFD5;
+            --yes-accent: #F5F5FF; /* Zacht, warm minimalistisch zand/beige */
             --yes-gold: #4BB3FD; /* Warm goud accent */
         }
 
@@ -604,7 +603,7 @@
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Wij gaan trouwen, en jij bent uitgenodigd om mee te vieren! Omdat we zelf al eens graag een feestje meepikken, kiezen we ervoor om er vooral een trouw<strong>feest</strong> van te maken. Denk aan een open-air festival: goeie muziek, (hopelijk) zonnig, frisse pintjes en vooral veel gezelligheid.</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Wij gaan trouwen, en jij bent uitgenodigd om mee te vieren! Omdat we zelf al eens graag een feestje meepikken, kiezen we ervoor om er vooral een trouw<strong>feest</strong> van te maken. Denk aan een open-air festival: goeie muziek, (hopelijk) zonnig weer, frisse pintjes en vooral veel gezelligheid.</p>
                     </div>
                 </div>
 
@@ -634,7 +633,7 @@
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee, doe je ding. Wij beginnen alleszins om 15:00 al aan de pinten.</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Nee hoor, doe je ding. Wij beginnen alleszins om 15:00 al aan de pinten.</p>
                     </div>
                 </div>
 
@@ -644,7 +643,7 @@
                         <span class="faq-icon text-3xl font-light leading-none">+</span>
                     </div>
                     <div class="faq-answer px-4 md:px-8">
-                        <p class="normal-text text-lg max-w-2xl opacity-80">Ja hoor, je kan je auto op het domein zelf parkeren. Er is voldoende plaats.</p>
+                        <p class="normal-text text-lg max-w-2xl opacity-80">Ja, je kan je auto gemakkelijk parkeren op het domein zelf. Er is voldoende plaats.</p>
                     </div>
                 </div>
 
@@ -725,7 +724,7 @@
                     <div class="space-y-8">
                         <div>
                             <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">01 / JE NAAM</label>
-                            <input type="text" name="naam" required placeholder="Voor- en achternaam" class="input-style">
+                            <input type="text" name="naam" required placeholder="Voor- en achternaam" class="input-style" oninput="this.value = this.value.replace(/\b\w/g, l => l.toUpperCase())">
                         </div>
                         
                         <div>
@@ -755,7 +754,7 @@
 
                         <div>
                             <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">04 / DIEETWENSEN / ALLERGIEËN?</label>
-                            <textarea rows="3" name="dieetwensen" placeholder="Veggie, vegan, gluten- of lactosevrij? Vertel het ons hier!" class="input-style resize-none"></textarea>
+                            <textarea rows="3" name="dieetwensen" placeholder="Veggie, vegan, gluten- of lactosevrij? Vertel het ons hier!" class="input-style resize-none" oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"></textarea>
                         </div>
                     </div>
 
@@ -961,4 +960,3 @@
 
 </body>
 </html>
-
