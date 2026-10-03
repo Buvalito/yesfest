@@ -26,13 +26,11 @@
             .min-h-screen {
                 min-height: 100svh !important;
             }
-            /* We dwingen alle 'full screen' elementen naar svh voor stabiliteit */
             .h-svh-fix {
                 height: 100svh !important;
             }
         }
 
-        /* Compensate for sticky nav height on anchor scroll */
         section[id], div[id] {
             scroll-margin-top: 70px;
         }
@@ -41,11 +39,10 @@
             font-family: 'Roboto Mono', monospace;
             background-color: var(--yes-white);
             color: var(--yes-blue);
-            text-transform: uppercase; /* Voor titels en labels */
+            text-transform: uppercase;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Leesbaarheid voor langere teksten */
         .normal-text {
             text-transform: none;
             font-family: 'Roboto', sans-serif;
@@ -65,18 +62,9 @@
             font-family: 'Roboto Mono', monospace;
         }
 
-        /* Minimalistische Design Classes */
-        .minimal-border {
-            border: 1px solid var(--yes-blue);
-        }
-        
-        .minimal-border-b {
-            border-bottom: 1px solid var(--yes-blue);
-        }
-
-        .minimal-border-t {
-            border-top: 1px solid var(--yes-blue);
-        }
+        .minimal-border { border: 1px solid var(--yes-blue); }
+        .minimal-border-b { border-bottom: 1px solid var(--yes-blue); }
+        .minimal-border-t { border-top: 1px solid var(--yes-blue); }
 
         /* NAV */
         nav {
@@ -227,11 +215,35 @@
             color: var(--yes-blue);
         }
 
-        /* Voorkom sticky hover-state op touch-devices */
+        .btn-white {
+            background-color: var(--yes-white);
+            color: var(--yes-blue);
+            border: 1px solid var(--yes-white);
+            font-family: 'Roboto Mono', monospace;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .btn-white:hover {
+            background-color: transparent;
+            color: var(--yes-white);
+        }
+
         @media (hover: none) {
             .btn-primary:hover {
                 background-color: var(--yes-blue);
                 color: var(--yes-white);
+            }
+            .btn-white:hover {
+                background-color: var(--yes-white);
+                color: var(--yes-blue);
             }
             .btn-outline:hover {
                 background-color: transparent;
@@ -254,49 +266,6 @@
 
         .btn-outline:hover {
             background-color: var(--yes-color);
-        }
-
-        .input-style {
-            border: 1px solid var(--yes-blue);
-            background-color: var(--yes-white);
-            color: var(--yes-blue);
-            font-family: 'Roboto', sans-serif;
-            text-transform: none;
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 16px; /* Prevent iOS auto-zoom on focus */
-            outline: none;
-            border-radius: 0;
-            appearance: none;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .input-style:focus {
-            background-color: var(--yes-accent);
-            border-color: var(--yes-blue);
-        }
-
-        .input-style::placeholder {
-            color: rgba(0, 0, 255, 0.4);
-            font-family: 'Roboto Mono', monospace;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-        }
-
-        .select-wrapper {
-            position: relative;
-        }
-        .select-wrapper::after {
-            content: '↓';
-            font-size: 1rem;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--yes-blue);
-            pointer-events: none;
         }
 
         /* FAQ */
@@ -370,79 +339,6 @@
             0%   { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-
-        /* Animatie voor laadscherm RSVP */
-        .loader {
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top: 2px solid var(--yes-white);
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            animation: spin 1s linear infinite;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ── COUNTDOWN — bold grid, mobile first ── */
-        .cd-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.15);
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .cd-cell {
-            background: var(--yes-blue);
-            padding: 28px 16px 22px;
-            text-align: center;
-            position: relative;
-        }
-
-        .cd-number {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 900;
-            font-size: clamp(3.5rem, 16vw, 6rem);
-            line-height: 1;
-            color: #fff;
-            letter-spacing: -0.03em;
-            display: block;
-            transition: opacity 0.15s ease;
-        }
-
-        .cd-number.tick {
-            opacity: 0.4;
-        }
-
-        .cd-label {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            color: rgba(255,255,255,0.4);
-            text-transform: uppercase;
-            margin-top: 10px;
-            display: block;
-        }
-
-        @media (min-width: 600px) {
-            .cd-grid {
-                grid-template-columns: repeat(4, 1fr);
-                max-width: 700px;
-            }
-            .cd-number { font-size: clamp(3rem, 8vw, 5.5rem); }
-        }
-
     </style>
 </head>
 <body>
@@ -458,11 +354,6 @@
             <li><a href="#praktisch" onclick="closeNav()">Praktisch</a></li>
             <li><a href="#faq" onclick="closeNav()">FAQ</a></li>
             <li><a href="#fotos" onclick="closeNav()">Foto's</a></li>
-            <li>
-                <a href="#rsvp" onclick="closeNav()" class="nav-rsvp-btn btn-primary px-6 py-2 text-sm">
-                    RSVP
-                </a>
-            </li>
         </ul>
     </div>
 </nav>
@@ -481,8 +372,8 @@
                 22 AUGUSTUS 2026
             </div>
             
-            <a href="#rsvp" class="btn-primary px-10 py-4 text-sm tracking-widest">
-                RSVP
+            <a href="https://drive.google.com/drive/folders/1ZvrCYih3SpCEVqmAQvPB_Y7K_B1Q677f?usp=sharing" target="_blank" class="btn-primary px-10 py-4 text-sm tracking-widest">
+                BEKIJK HET FOTOALBUM
             </a>
         </div>
 
@@ -517,7 +408,6 @@
         </div>
     </section>
 
-    
     <section class="py-12 px-5 md:p-16 lg:p-24 bg-[var(--yes-accent)] relative" id="praktisch">
         <div class="max-w-6xl mx-auto">
             
@@ -527,7 +417,6 @@
             </div>
             
             <div class="border-t border-[var(--yes-blue)]">
-
                 <!-- Locatie -->
                 <div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-16 py-7 md:py-14 border-b border-[var(--yes-blue)]">
                     <div class="mono text-xs tracking-widest  md:w-36 shrink-0">LOCATIE</div>
@@ -581,7 +470,6 @@
                         <div class="mono text-sm opacity-60">Niet mee inzitten</div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -703,17 +591,20 @@
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 md:gap-24 items-start mb-16">
                 <div class="md:w-1/2">
                     <div class="mono text-xs tracking-[0.2em] opacity-60 mb-8 border-b border-white border-opacity-30 inline-block pb-2">DIT WAS YESFEST</div>
-                    <h2 class="display-font text-5xl md:text-7xl font-black leading-none mb-8">PICS OR IT <br>DID'T HAPPEN.</h2>
-                    <div class="mono text-xs border border-white px-4 py-2 inline-block">VOLLEDIG ALBUM — 22 SEPTEMBER</div>
+                    <h2 class="display-font text-5xl md:text-7xl font-black leading-none mb-8">PICS OR IT <br>DIDN'T HAPPEN.</h2>
                 </div>
                 
                 <div class="md:w-1/2 md:pt-16">
                     <p class="normal-text text-lg opacity-90 mb-6">
-                        Het was een onvergetelijk feest! We zijn volop de mooiste momenten aan het bundelen in een digitaal album, zodat iedereen nog lang kan nagenieten deze topdag.
+                        Het was een onvergetelijk feest! We hebben de mooiste momenten gebundeld in een digitaal album, zodat iedereen nog lang kan nagenieten van deze topdag.
                     </p>
-                    <p class="normal-text text-lg opacity-90">
-                        Nog even geduld... Op <strong>22 september</strong> droppen we hier het volledige trouwalbum.
+                    <p class="normal-text text-lg opacity-90 mb-8">
+                        Klik op de knop hieronder om alle foto's te bekijken (en te downloaden!).
                     </p>
+                    
+                    <a href="https://drive.google.com/drive/folders/1ZvrCYih3SpCEVqmAQvPB_Y7K_B1Q677f?usp=sharing" target="_blank" class="btn-white px-8 py-4 text-sm tracking-widest">
+                        NAAR HET FOTOALBUM
+                    </a>
                 </div>
             </div>
 
@@ -725,118 +616,14 @@
         </div>
     </section>
 
-    <!-- RSVP (Ticket Form) -->
-    <section class="py-24 px-6 md:p-16 lg:p-24 bg-[var(--yes-accent)]" id="rsvp">
-        <div class="max-w-3xl mx-auto">
-            
-            <div>
-                
-                <div class="text-center mb-16">
-                    <h2 class="display-font text-4xl md:text-6xl mb-4 font-black">RSVP</h2>
-                    <p class="mono text-sm tracking-widest opacity-60">DEADLINE — 1 JUNI</p>
-                </div>
-
-                <form id="rsvpForm" onsubmit="submitRSVP(event)" class="space-y-10">
-                    
-                    <div class="space-y-8">
-                        <div>
-                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">01 / JE NAAM</label>
-                            <input type="text" name="naam" required placeholder="Voor- en achternaam" class="input-style" oninput="this.value = this.value.replace(/\b\w/g, l => l.toUpperCase())">
-                        </div>
-                        
-                        <div>
-                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">02 / BEN JE ERBIJ?</label>
-                            <div class="select-wrapper">
-                                <select required id="attendance" name="aanwezig" onchange="togglePlusOne()" class="input-style">
-                                    <option value="" disabled selected>Kies een optie...</option>
-                                    <option value="ja">Hell yes, I'm in!</option>
-                                    <option value="nee">Nee, jammer genoeg niet.</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="extra-fields" style="display: none;" class="space-y-10 pt-10 border-t border-[var(--yes-blue)] border-opacity-20">
-                        
-                        <div>
-                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">03 / EET JE MEE?</label>
-                            <div class="select-wrapper">
-                                <select id="eating" name="eet_mee" required class="input-style">
-                                    <option value="" disabled selected>Laat het ons weten...</option>
-                                    <option value="ja">Ja, loaded fries aub!</option>
-                                    <option value="nee">Nee, ik ben er enkel voor de drank.</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="mono block text-xs font-bold mb-2 tracking-[0.1em] opacity-60">04 / DIEETWENSEN / ALLERGIEËN?</label>
-                            <textarea rows="3" name="dieetwensen" placeholder="Veggie, vegan, gluten- of lactosevrij? Vertel het ons hier!" class="input-style resize-none" oninput="this.value = this.value.charAt(0).toUpperCase() + this.value.slice(1)"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="pt-6">
-                        <button type="submit" id="submitBtn" class="btn-primary w-full p-5 text-sm tracking-widest relative overflow-hidden h-[60px]">
-                            <span id="btnText">BEVESTIGEN</span>
-                            <div id="btnLoader" class="loader hidden"></div>
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Succes Bericht -->
-                <div id="successMessage" class="hidden text-center py-16 flex flex-col items-center justify-center min-h-[400px] fade-in">
-                    <div class="mb-8">
-                        <svg class="w-16 h-16 text-[var(--yes-blue)] mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
-                    </div>
-                    <h3 id="successTitle" class="display-font text-4xl md:text-5xl mb-6 font-black uppercase">You're on<br>the list.</h3>
-                    <p id="successText" class="normal-text text-lg mb-10 text-[var(--yes-blue)] max-w-md mx-auto opacity-80">Bedankt voor je RSVP. We kijken ernaar uit om er samen een topfeestje van te maken!</p>
-                    <div id="successTag" class="mono text-xs tracking-widest border border-[var(--yes-blue)] px-6 py-3">SEE YOU SOON</div>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
     <!-- FOOTER -->
-<footer class="text-center py-8 px-6 bg-[var(--yes-white)] text-[var(--yes-blue)] minimal-border-t">
-    <p class="mono text-xs tracking-widest opacity-60">22.08.2026</p>
-</footer>
+    <footer class="text-center py-8 px-6 bg-[var(--yes-white)] text-[var(--yes-blue)] minimal-border-t">
+        <p class="mono text-xs tracking-widest opacity-60">22.08.2026</p>
+    </footer>
 
 </div>
 
 <script>
-    // ── COUNTDOWN ──
-    function updateCountdown() {
-        const target = new Date('2026-08-22T15:00:00');
-        const diff = Math.max(0, target - new Date());
-
-        const days    = Math.floor(diff / 86400000);
-        const hours   = Math.floor((diff % 86400000) / 3600000);
-        const minutes = Math.floor((diff % 3600000)  / 60000);
-        const seconds = Math.floor((diff % 60000)    / 1000);
-
-        function setVal(id, val) {
-            const el = document.getElementById(id);
-            const str = String(val).padStart(2, '0');
-            if (el.textContent !== str) {
-                el.classList.add('tick');
-                setTimeout(() => {
-                    el.textContent = str;
-                    el.classList.remove('tick');
-                }, 80);
-            }
-        }
-
-        setVal('cd-days',    days);
-        setVal('cd-hours',   hours);
-        setVal('cd-minutes', minutes);
-        setVal('cd-seconds', seconds);
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-
     function toggleNav() {
         const nav = document.getElementById('main-nav');
         const links = document.getElementById('nav-links');
@@ -910,68 +697,6 @@
             if (item !== element) item.classList.remove('active');
         });
         element.classList.toggle('active');
-    }
-
-    function togglePlusOne() {
-        const attendance = document.getElementById('attendance').value;
-        const extraFields = document.getElementById('extra-fields');
-        const eatingSelect = document.getElementById('eating');
-        
-        if (attendance === 'nee' || attendance === '') {
-            extraFields.style.display = 'none';
-            eatingSelect.removeAttribute('required');
-        } else {
-            extraFields.style.display = 'block';
-            eatingSelect.setAttribute('required', 'required');
-        }
-    }
-
-    async function submitRSVP(event) {
-        event.preventDefault();
-        
-        const btnText = document.getElementById('btnText');
-        const btnLoader = document.getElementById('btnLoader');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        btnText.classList.add('hidden');
-        btnLoader.classList.remove('hidden');
-        submitBtn.style.pointerEvents = 'none';
-
-        const form = document.getElementById('rsvpForm');
-        const formData = new FormData(form);
-
-        // Vervang JOUW_SCRIPT_URL hieronder met de URL van jouw Google Apps Script
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwF-dybBxfLYE5plKJOvIrmGWTdhIkWsZ3Q0U7UrhRPlvE7ecVXPXSXfateX5DMxKl9fg/exec';
-
-        // no-cors: browser blokkeert het antwoord van Google Apps Script (CORS),
-        // maar het verzoek zelf komt wél aan. We tonen altijd het successcherm.
-        try {
-            await fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: formData,
-                mode: 'no-cors'
-            });
-        } catch (err) {
-            // Stil opvangen — no-cors gooit zelden een echte fout
-        }
-
-        const attending = document.getElementById('attendance').value;
-        if (attending === 'nee') {
-            document.getElementById('successTitle').innerHTML = 'Jammer dat je er niet bij kan zijn.';
-            document.getElementById('successText').textContent = 'Bedankt voor je RSVP.';
-            document.getElementById('successTag').textContent = 'Even goeie vrienden!';
-        }
-
-        form.style.display = 'none';
-        const successMsg = document.getElementById('successMessage');
-        successMsg.classList.remove('hidden');
-        successMsg.style.opacity = '0';
-        setTimeout(() => { successMsg.style.opacity = '1'; successMsg.style.transition = 'opacity 0.5s ease'; }, 10);
-
-        const section = document.getElementById('rsvp');
-        const navHeight = document.querySelector('nav').offsetHeight;
-        const sectionPosition = section.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: sectionPosition - navHeight, behavior: 'smooth' });
     }
 </script>
 
